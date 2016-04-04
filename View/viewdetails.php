@@ -130,8 +130,8 @@ if(isset($_SESSION['UserID']))
 
 
 			<!-- Start : Inputs for Query -->
-
-			<div class="row-fluid sortable">
+			
+			<div class="row-fluid sortable">		
 				<div class="box span12">
 					<div class="box-header" data-original-title>
 						<h2><i class="halflings-icon white user"></i><span class="break"></span>Queries</h2>
@@ -140,16 +140,59 @@ if(isset($_SESSION['UserID']))
 							<a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>
 						</div>
 					</div>
-
-				<div class="box-content">
-
-
+				<div class ="box-content">	
+				<form action="test.php" method="post">
+				
+					<table cellspacing="5em" cellpadding="15" >
+					<br>
+					<tr>
+					<td align="center">
+					
 					<button class="btn btn-small btn-primary">All students</button>
-
+					
+					</td>
+					
+					<td>
+					
+					<div class="control-group">
+								<label class="control-label" for="selectError1">Internship Type</label>
+								<div class="controls">
+								  <select id="selectError1" multiple data-rel="chosen" name="intern[]">
+									<option selected>Company - Paid job</option>
+									<option>Company - Unpaid job</option>
+									<option>Start up company</option>
+									<option>Research Project</option>
+									<option>MAC Project</option>
+									<option>Other</option>
+									<option>Without any job</option>
+								  </select>
+								</div>
+							  </div>
+					
+					</td>
+					
+					<td>
+					
+					<div class="control-group">
+						<label class="control-label" for="selectError">Job Location</label>
+							<div class="controls">
+								  <select id="selectError2" data-rel="chosen"  name="location" >
+									<option>Toronto</option>
+									<option>Windsor</option>
+									<option>Quebec</option>
+									
+								  </select>
+							</div>
+					</div>
+					
+					</td>
+					
+					<td>
+					
 					<div class="control-group">
 						<label class="control-label" for="selectError">Country</label>
 							<div class="controls">
-								  <select id="selectError" data-rel="chosen" size="8px" >
+								  <select id="selectError3" data-rel="chosen"  name="country">
 									<option>Canada</option>
 									<option>India</option>
 									<option>Canada</option>
@@ -159,34 +202,148 @@ if(isset($_SESSION['UserID']))
 								  </select>
 							</div>
 					</div>
-					<br>
+					
+									
+					</td>
+					
+					</tr>
+					
+					<tr>
+					<td>
+					
+					
 					<div class="control-group">
 						<label class="control-label" for="selectError3">Batch</label>
 							<div class="controls">
-								  <select id="selectError3" data-rel="chosen" >
+								  <select id="selectError4" data-rel="chosen"  name="batch">
 									<option>Option 4</option>
 									<option>Option 5</option>
 								  </select>
 							</div>
 					</div>
-
+					
+					</td>
+					
+					<td>
+					
 					<div class="control-group">
-								<label class="control-label" for="selectError3">Students</label>
+						<label class="control-label" for="selectError5">GPA</label>
+							<div class="controls">
+								  <select id="selectError5" data-rel="chosen"  name="gpa">
+									<option>Under Graduate</option>
+									<option>Graduate</option>
+								  </select>
+							</div>
+					</div>
+								  			  
+								  
+							
+					</td>
+					
+					<td>
+					From 
+					<br><input type="text" size="2" name="from" placeholder="/10" maxlength="2" style="width:100px"  >
+					</td>
+					<td>
+					To 
+					<br>
+					<input type="text"  name="to" id="gpato" placeholder="/10" maxlength="2" size="2" style="width:100px" />
+					</td>
+					</tr>
+					<!--</div>-->
+					
+					<tr>
+					<td>
+					
+					<div class="control-group">
+								<label class="control-label" for="selectError6">Skills</label>
 								<div class="controls">
-								  <select id="selectError3">
-									<option>With a job</option>
+								  <select id="selectError6" multiple data-rel="chosen" name="skills[]">
+									<option selected>DB</option>
+									<option>PHP</option>
+									<option>Java</option>
+									<option>Research Project</option>
+									<option>MAC Project</option>
+									<option>Other</option>
 									<option>Without any job</option>
-									<option>With unpaid job</option>
-
 								  </select>
 								</div>
+							  </div>
+					
+					</td>
+					
+					<td>
+					
+					<div class="control-group">
+						<label class="control-label" for="selectError3">Certification</label>
+							<div class="controls">
+								  <select id="selectError7" data-rel="chosen"  name="certification">
+									<option>Option 4</option>
+									<option>Option 5</option>
+								  </select>
+							</div>
 					</div>
+					</td>
+					
+					<td>
+					<div class="control-group">
+						<label class="control-label" for="selectError8">Experience</label>
+							<div class="controls">
+								  <select id="selectError8" data-rel="chosen"  name="experience">
+									<option>No Work Experience</option>
+									<option><1 year</option>
+									<option>1-3 years</option>
+									<option>> 3 years</option>
+								  </select>
+							</div>
+					</div>
+					</td>
+					
+					<td>
+					<div class="control-group">
+						<label class="control-label" for="selectError9">Gender</label>
+							<div class="controls">
+								  <select id="selectError9" data-rel="chosen"  name="gender">
+									<option>All</option>
+									<option>Male</option>
+									<option>Female</option>
+									
+								  </select>
+							</div>
+					</div>
+					</td>
+					</tr>
+					<tr>
+					<td colspan="2" align="center">
+					 <input type="submit" value="Submit" />
+					</td>
+					<td colspan="2" align="center">
+					<button onclick="myFunction()">Print</button>
 
+					<script>
+					function myFunction() {
+					window.print();
+					}
+					</script>
+					</td>
+					</tr>
+					</table>
+					
+					
+				</form>
 
-				</div>
-				</div>
 			</div>
+			</div>
+			</div>
+			
 			<!-- End : Inputs for Query -->
+			
+			
+			<!-- Start : Modal -->
+			
+
+			
+			<!-- End : Modal -->
 
 
 
