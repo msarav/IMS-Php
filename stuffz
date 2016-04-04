@@ -1,0 +1,36 @@
+<div class="control-group" >
+  <div class="col-md-12" style="height:2em;"></div>
+
+  <div class="col-md-12">
+      <span class="col-md-3" >
+            Semester Registered
+      </span>
+
+      <span class="col-md-3" >
+        <span class="col-md-6" >
+                  <label class="radio">
+                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                    Fall
+                  </label>
+
+          </span>
+          <span class="col-md-6" >
+            <label class="radio">
+              <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+              Winter
+            </label>
+          </span>
+      </span>
+
+      <span class="col-md-2" style="padding-left:5em;" >
+            Year
+      </span>
+
+
+      <span class="col-md-1" style="padding-left:2em;">
+        <input id="Year_Regtd" name="Year_Regtd"  style="text-length:5px;" type="text"/>
+
+      </span>
+
+  </div>
+</div>
