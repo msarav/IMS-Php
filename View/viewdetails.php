@@ -10,6 +10,7 @@ if(isset($_SESSION['UserID']))
 	$Username = $_SESSION['User Name'];
 	$ProfileType =$_SESSION['User Type'];
 
+	include("../Controller/View_Controller.php");
 ?>
 <html lang="en">
 <head>
@@ -158,7 +159,7 @@ if(isset($_SESSION['UserID']))
 								<label class="control-label" for="selectError1">Internship Type</label>
 								<div class="controls">
 								  <select id="selectError1" multiple data-rel="chosen" name="intern[]">
-									<option selected>Company - Paid job</option>
+									<option>Company - Paid job</option>
 									<option>Company - Unpaid job</option>
 									<option>Start up company</option>
 									<option>Research Project</option>
@@ -174,12 +175,18 @@ if(isset($_SESSION['UserID']))
 					<td>
 					
 					<div class="control-group">
-						<label class="control-label" for="selectError">Job Location</label>
+						<label class="control-label" for="joblocation">Job Location</label>
 							<div class="controls">
-								  <select id="selectError2" data-rel="chosen"  name="location" >
-									<option>Toronto</option>
-									<option>Windsor</option>
-									<option>Quebec</option>
+								  <select id="joblocation" data-rel="chosen"  name="joblocation" >
+									<option  selected value> -- Select an option -- </option>
+									<?
+									   foreach($View_Details_Joblocation as $location)
+									   {
+									?>
+											<option value="<? echo $location; ?>"><? echo $location; ?></option>
+									<?
+									   }
+									?>
 									
 								  </select>
 							</div>
@@ -190,15 +197,18 @@ if(isset($_SESSION['UserID']))
 					<td>
 					
 					<div class="control-group">
-						<label class="control-label" for="selectError">Country</label>
+						<label class="control-label" for="country">Country</label>
 							<div class="controls">
-								  <select id="selectError3" data-rel="chosen"  name="country">
-									<option>Canada</option>
-									<option>India</option>
-									<option>Canada</option>
-									<option>China</option>
-									<option>Option 4</option>
-									<option>Option 5</option>
+								  <select id="country" data-rel="chosen"  name="country">
+									<option  selected value> -- Select an option -- </option>
+									<?
+									   foreach($View_Details_Country as $country)
+									   {
+									?>
+											<option value="<? echo $country; ?>"><? echo $country; ?></option>
+									<?
+									   }
+									?>
 								  </select>
 							</div>
 					</div>
@@ -216,6 +226,7 @@ if(isset($_SESSION['UserID']))
 						<label class="control-label" for="selectError3">Batch</label>
 							<div class="controls">
 								  <select id="selectError4" data-rel="chosen"  name="batch">
+									<option  selected value> -- Select an option -- </option>
 									<option>Option 4</option>
 									<option>Option 5</option>
 								  </select>
@@ -230,6 +241,7 @@ if(isset($_SESSION['UserID']))
 						<label class="control-label" for="selectError5">GPA</label>
 							<div class="controls">
 								  <select id="selectError5" data-rel="chosen"  name="gpa">
+									<option  selected value> -- Select an option -- </option>
 									<option>Under Graduate</option>
 									<option>Graduate</option>
 								  </select>
@@ -242,12 +254,12 @@ if(isset($_SESSION['UserID']))
 					
 					<td>
 					From 
-					<br><input type="text" size="2" name="from" placeholder="/10" maxlength="2" style="width:100px"  >
+					<br><input type="text" size="2" name="from" placeholder="/10" maxlength="4" style="width:100px"  >
 					</td>
 					<td>
 					To 
 					<br>
-					<input type="text"  name="to" id="gpato" placeholder="/10" maxlength="2" size="2" style="width:100px" />
+					<input type="text"  name="to" id="gpato" placeholder="/10" maxlength="4" size="2" style="width:100px" />
 					</td>
 					</tr>
 					<!--</div>-->
@@ -259,7 +271,7 @@ if(isset($_SESSION['UserID']))
 								<label class="control-label" for="selectError6">Skills</label>
 								<div class="controls">
 								  <select id="selectError6" multiple data-rel="chosen" name="skills[]">
-									<option selected>DB</option>
+									<option>DB</option>
 									<option>PHP</option>
 									<option>Java</option>
 									<option>Research Project</option>
@@ -278,6 +290,7 @@ if(isset($_SESSION['UserID']))
 						<label class="control-label" for="selectError3">Certification</label>
 							<div class="controls">
 								  <select id="selectError7" data-rel="chosen"  name="certification">
+									<option  selected value> -- Select an option -- </option>
 									<option>Option 4</option>
 									<option>Option 5</option>
 								  </select>
@@ -290,6 +303,7 @@ if(isset($_SESSION['UserID']))
 						<label class="control-label" for="selectError8">Experience</label>
 							<div class="controls">
 								  <select id="selectError8" data-rel="chosen"  name="experience">
+									<option  selected value> -- Select an option -- </option>
 									<option>No Work Experience</option>
 									<option><1 year</option>
 									<option>1-3 years</option>
@@ -304,7 +318,7 @@ if(isset($_SESSION['UserID']))
 						<label class="control-label" for="selectError9">Gender</label>
 							<div class="controls">
 								  <select id="selectError9" data-rel="chosen"  name="gender">
-									<option>All</option>
+									<option selected>All</option>
 									<option>Male</option>
 									<option>Female</option>
 									
@@ -341,8 +355,194 @@ if(isset($_SESSION['UserID']))
 			
 			<!-- Start : Modal -->
 			
+			<!--<a href="#openModal1">Open Modal</a>-->
+
 
 			
+			
+			
+			<div id="openModal1" class="modalDialog" >
+				<div style="border:1px solid black;">	<a href="#close" title="Close" class="close">X</a>
+
+						
+						<br>
+						<br>
+						<br>
+						
+						<div class="box span11" style="margin-left:2em;" >
+							<div class="box-header" >
+							<h2 style="margin-left:18em;"><b>Internship Info</b></h2>
+							</div>
+						
+							<div class="box-content">
+							  <form class="form-horizontal" name="Upload_StuPreIntern_form" action="../Controller/Upload_Controller.php" method="post" onsubmit="return check_upload_form()">
+								<fieldset>
+
+								   <div class="control-group">
+									<label class="control-label" for="Intern_type">Internship Type</label>
+									<div class="controls">
+									  <div class="input">
+										 <input id="Intern_type" name="Intern_type" size="16" type="text" readonly />
+									  </div>
+									</div>
+								  </div>
+
+								  <div class="control-group">
+									<label class="control-label" for="Company_name">Company name</label>
+									<div class="controls">
+									  <div class="input">
+										 <input id="Company_name" name="Company_name" size="16" type="text" readonly />
+									  </div>
+									</div>
+								  </div>
+
+								  <div class="control-group">
+									<label class="control-label" for="Company_addr">Company Address</label>
+									<div class="controls ">
+									  <div class="input">
+										 <input class="input-xlarge" id="Company_addr" name="Company_addr" size="30" type="text" placeholder="Address" readonly />
+										 <input class="span2" id="Company_city" name="Company_city" size="30" type="text" placeholder="City" readonly />
+										 <input class="span2" id="Company_PostalCode" name="Company_PostalCode" size="30" type="text" placeholder="Postal Code" readonly />
+									  </div>
+									</div>
+								  </div>
+								
+								 <div class="control-group">
+									<label class="control-label" for="Company_Phonenum">Org - Contact Info</label>
+									<div class="controls">
+									  <div class="input">
+										 <input class="span3" id="Company_Phonenum" name="Company_Phonenum" size="30" type="text" placeholder="Org Phone num" readonly />
+										 <input class="span4" id="Company_OrgWebsite" name="Company_OrgWebsite" size="30" type="text" placeholder="Org Website"  readonly />
+									  </div>
+									</div>
+								  </div>
+								  
+								  <div class="control-group">
+									<label class="control-label" for="Company_POC_Fname">POC - Info</label>
+									<div class="controls">
+									  <div class="input">
+										 <input class="span3" id="Company_POC_Fname" name="Company_POC_Fname" size="30" type="text" placeholder="First Name" readonly />
+										 <input class="span3" id="Company_POC_Lname" name="Company_POC_Lname" size="30" type="text" placeholder="Last Name" readonly />
+										 <input class="span4" id="Company_POCEmail" name="Company_POCEmail" size="30" type="text" placeholder="POC E-mail" readonly />
+									  </div>
+									</div>
+								  </div>
+
+								  <div class="control-group">
+									<label class="control-label" for="Company_POC_Position">POC - Position</label>
+									<div class="controls">
+									  <div class="input">
+										 <input id="Company_POC_Position" name="Company_POC_Position" size="30" type="text" readonly />
+									  </div>
+									</div>
+								  </div>
+
+								  <div class="control-group">
+									<label class="control-label" for="Intern_PositionNotes">Notes</label>
+									<div class="controls">
+									  <div class="input">
+										<textarea id="Intern_PositionNotes" rows="5" style="width:30em;" readonly ></textarea>
+									  </div>
+									</div>
+								  </div>
+
+                
+
+								</fieldset>
+							
+							  </form>
+
+							  </div>
+						
+						</div><!--/box-->
+											
+				</div>
+			</div>
+			
+<style>
+			.modalDialog {
+    position: fixed;
+    font-family: Arial, Helvetica, sans-serif;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 99999;
+    opacity:0;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+    pointer-events: none;
+}
+.modalDialog:target {
+    opacity:1;
+    pointer-events: auto;
+}
+.close {
+    background: #606061;
+    color: #FFFFFF;
+    line-height: 25px;
+    position: absolute;
+    right: 3px;
+    text-align: center;
+    top: 0px;
+    width: 24px;
+    text-decoration: none;
+    font-weight: bold;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+    -moz-box-shadow: 1px 1px 3px #000;
+    -webkit-box-shadow: 1px 1px 3px #000;
+    box-shadow: 1px 1px 3px #000;
+}
+.modalDialog > div {
+    width: 800px;
+	height: 400px;
+    position: relative;
+    margin: 10% auto;
+	overflow: auto;
+    padding: 5px 20px 13px 20px;
+    border-radius: 10px;
+    background: #fff;
+    
+}
+
+.close:hover {
+    background: #00d9ff;
+}
+
+		</style>	
+		
+		<script>
+		
+		function modalClose() {
+    if (location.hash == '#openModal1') {
+        location.hash = '';
+    }
+}
+
+document.addEventListener('keyup', function(e) {
+    if (e.keyCode == 27) {
+        modalClose();
+    }
+});
+
+var modal = document.querySelector('#openModal1');
+modal.addEventListener('click', function(e) {
+    modalClose();
+}, false);
+
+modal.children[0].addEventListener('click', function(e) {
+    e.stopPropagation();
+}, false);
+		
+		
+		
+		
+		
+		</script>
 			<!-- End : Modal -->
 
 
@@ -361,10 +561,10 @@ if(isset($_SESSION['UserID']))
 						<table class="table table-striped table-bordered bootstrap-datatable datatable">
 						  <thead>
 							  <tr>
-								  <th>Username</th>
-								  <th>Date registered</th>
-								  <th>Role</th>
-								  <th>Status</th>
+								  <th>Name</th>
+								  <th>Current Position</th>
+								  <th>Email</th>
+								  <th>Batch</th>
 								  <th>Actions</th>
 							  </tr>
 						  </thead>
@@ -377,15 +577,13 @@ if(isset($_SESSION['UserID']))
 									<span class="label label-success">Active</span>
 								</td>
 								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
+									<a class="btn btn-success" href="#openModal1">
+										<i class="halflings-icon white user"></i>
 									</a>
-									<a class="btn btn-info" href="#">
+									<a class="btn btn-info" href="Upload_form.php">
 										<i class="halflings-icon white edit"></i>
 									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
-									</a>
+									
 								</td>
 							</tr>
 							<tr>
@@ -1034,7 +1232,7 @@ if(isset($_SESSION['UserID']))
 	<!-- start: JavaScript-->
 
 		<script src="../js/jquery-1.9.1.min.js"></script>
-	<script src="../js/jquery-migrate-1.0.0.min.js"></script>
+		<script src="../js/jquery-migrate-1.0.0.min.js"></script>
 
 		<script src="../js/jquery-ui-1.10.0.custom.min.js"></script>
 
@@ -1051,10 +1249,10 @@ if(isset($_SESSION['UserID']))
 		<script src='../js/jquery.dataTables.min.js'></script>
 
 		<script src="../js/excanvas.js"></script>
-	<script src="../js/jquery.flot.js"></script>
-	<script src="../js/jquery.flot.pie.js"></script>
-	<script src="../js/jquery.flot.stack.js"></script>
-	<script src="../js/jquery.flot.resize.min.js"></script>
+		<script src="../js/jquery.flot.js"></script>
+		<script src="../js/jquery.flot.pie.js"></script>
+		<script src="../js/jquery.flot.stack.js"></script>
+		<script src="../js/jquery.flot.resize.min.js"></script>
 
 		<script src="../js/jquery.chosen.min.js"></script>
 
@@ -1087,6 +1285,7 @@ if(isset($_SESSION['UserID']))
 		<script src="../js/retina.js"></script>
 
 		<script src="../js/custom.js"></script>
+		
 	<!-- end: JavaScript-->
 
 </body>

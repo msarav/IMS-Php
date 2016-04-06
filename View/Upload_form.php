@@ -11,9 +11,7 @@ if(isset($_SESSION['UserID']))
 	$ProfileType =$_SESSION['User Type'];
 
   include("../Controller/Lookup_Controller.php");
-//  var_dump($FormLookup_Details_years);
 
-  //exit();
 ?>
 <html lang="en">
 <head>

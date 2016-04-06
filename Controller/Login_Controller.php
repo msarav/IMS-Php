@@ -1,6 +1,6 @@
 <?
 session_start();
-
+		
 include("../Model/Users_PDO.php");
 
 if(isset($_POST['login_submit']) || isset($_SESSION['Logged in']))
@@ -9,7 +9,10 @@ if(isset($_POST['login_submit']) || isset($_SESSION['Logged in']))
 	{
 		$Useremail =  trim($_POST['inputEmail']);
 		$Password =  trim($_POST['inputPassword']);
+			
 
+		
+		
 		$Login_result = Login_Check($Useremail,$Password);
 
 		if($Login_result == "Matched")

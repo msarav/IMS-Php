@@ -131,63 +131,7 @@ if(isset($_SESSION['UserID']))
 				<li><a href="#">Charts</a></li>
 			</ul>
 
-			<div class="row-fluid">
-
-				<div class="box">
-					<div class="box-header">
-						<h2><i class="halflings-icon white list-alt"></i><span class="break"></span>Chart with points</h2>
-						<div class="box-icon">
-							<a href="#" class="btn-setting"><i class="halflings-icon white wrench"></i></a>
-							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>
-						</div>
-					</div>
-					<div class="box-content">
-						<div id="sincos"  class="center" style="height:300px;" ></div>
-						<p id="hoverdata">Mouse position at (<span id="x">0</span>, <span id="y">0</span>). <span id="clickdata"></span></p>
-					</div>
-				</div>
-
-				<div class="box">
-					<div class="box-header">
-						<h2><i class="halflings-icon white list-alt"></i><span class="break"></span>Flot</h2>
-						<div class="box-icon">
-							<a href="#" class="btn-setting"><i class="halflings-icon white wrench"></i></a>
-							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>
-						</div>
-					</div>
-					<div class="box-content">
-						<div id="flotchart" class="center" style="height:300px"></div>
-					</div>
-				</div>
-
-				<div class="box">
-					<div class="box-header">
-						<h2><i class="halflings-icon white list-alt"></i><span class="break"></span>Stack Example</h2>
-						<div class="box-icon">
-							<a href="#" class="btn-setting"><i class="halflings-icon white wrench"></i></a>
-							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>
-						</div>
-					</div>
-					<div class="box-content">
-						 <div id="stackchart" class="center" style="height:300px;"></div>
-
-						<p class="stackControls center">
-							<input class="btn" type="button" value="With stacking">
-							<input class="btn" type="button" value="Without stacking">
-						</p>
-
-						<p class="graphControls center">
-							<input class="btn-primary" type="button" value="Bars">
-							<input class="btn-primary" type="button" value="Lines">
-							<input class="btn-primary" type="button" value="Lines with steps">
-						</p>
-					</div>
-				</div>
-
-			</div><!--/row-->
+			
 
 			<div class="row-fluid sortable">
 				<div class="box span6">
@@ -200,7 +144,102 @@ if(isset($_SESSION['UserID']))
 						</div>
 					</div>
 					<div class="box-content">
-							<div id="piechart" style="height:300px"></div>
+							
+							
+							<div class="control-group">
+							<table align="center" cellpadding="10" >
+							<tr>
+							<td>
+							<label class="control-label controls" for="selectError3">Company</label></td>
+							<td>
+								<div class="controls">
+									  <select id="selectError11" data-rel="chosen"  name="company_name">
+										<option  selected value> -- Select an option -- </option>
+										<option>Option 4</option>
+										<option>Option 5</option>
+									  </select>
+								</div></td></table>
+								
+							</div>
+							
+							
+							
+							<script src="../js/amcharts.js"></script>
+							<script src="../js/serial.js"></script>
+							<script src="../js/light.js"></script>
+							
+							
+							<script>
+								var chart = AmCharts.makeChart( "chartdiv", {
+								  "type": "serial",
+								  "theme": "light",
+								  "dataProvider": [ {
+									"country": "USA",
+									"visits": 2025
+								  }, {
+									"country": "China",
+									"visits": 1882
+								  }, {
+									"country": "Japan",
+									"visits": 1809
+								  }, {
+									"country": "Germany",
+									"visits": 1322
+								  }, {
+									"country": "UK",
+									"visits": 1122
+								  }, {
+									"country": "France",
+									"visits": 1114
+								  }, {
+									"country": "India",
+									"visits": 2200
+								  } ],
+								  "valueAxes": [ {
+									"gridColor": "#FFFFFF",
+									"gridAlpha": 0.2,
+									"dashLength": 0
+								  } ],
+								  "gridAboveGraphs": true,
+								  "startDuration": 1,
+								  "graphs": [ {
+									"balloonText": "[[category]]: <b>[[value]]</b>",
+									"fillAlphas": 0.8,
+									"lineAlpha": 0.2,
+									"type": "column",
+									"valueField": "visits"
+								  } ],
+								  "chartCursor": {
+									"categoryBalloonEnabled": false,
+									"cursorAlpha": 0,
+									"zoomable": false
+								  },
+								  "categoryField": "country",
+								  "categoryAxis": {
+									"gridPosition": "start",
+									"gridAlpha": 0,
+									"tickPosition": "start",
+									"tickLength": 20
+								  },
+								  "export": {
+									"enabled": true
+								  }
+
+								} );		
+							
+							</script>
+							
+							<div id="chartdiv"></div>					
+
+								<style>
+								#chartdiv {
+									width		: 100%;
+									height		: 250px;
+									font-size	: 9px;
+								}					
+								</style>
+							
+							
 					</div>
 				</div>
 
@@ -217,49 +256,337 @@ if(isset($_SESSION['UserID']))
 						 <div id="donutchart" style="height: 300px;"></div>
 					</div>
 				</div>
-
-			</div><!--/row-->
-
-			<hr>
-
-			<div class="row-fluid sortable">
-				<div class="box span12">
-					<div class="box-header">
-						<h2><i class="halflings-icon white list-alt"></i><span class="break"></span>Realtime</h2>
+				
+				
+				<!-- Animated Doughnut Start-->
+				
+				<div class="box span12" style="margin-left: 0em;">
+					<div class="box-header" data-original-title>
+						<h2><i class="halflings-icon white list-alt"></i><span class="break"></span>Donut</h2>
 						<div class="box-icon">
 							<a href="#" class="btn-setting"><i class="halflings-icon white wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
 							<a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>
 						</div>
 					</div>
+					
 					<div class="box-content">
-						 <div id="realtimechart" style="height:190px;"></div>
-						 <p>You can update a chart periodically to get a real-time effect by using a timer to insert the new data in the plot and redraw it.</p>
-						 <p>Time between updates: <input id="updateInterval" type="text" value="" style="text-align: right; width:5em"> milliseconds</p>
+									<script src="../js/animate.min.js"></script>
+									<script src="../js/pie.js"></script>
+					
+							<script>
+								/**
+								 * Define data for each year
+								 */
+								var chartData = {
+								  "1995": [ 
+									{ "sector": "Agriculture", "size": 6.6 }, 
+									{ "sector": "Mining and Quarrying", "size": 0.6 }, 
+									{ "sector": "Manufacturing", "size": 23.2 }, 
+									{ "sector": "Electricity and Water", "size": 2.2 }, 
+									{ "sector": "Construction", "size": 4.5 }, 
+									{ "sector": "Trade (Wholesale, Retail, Motor)", "size": 14.6 }, 
+									{ "sector": "Transport and Communication", "size": 9.3 }, 
+									{ "sector": "Finance, real estate and business services", "size": 22.5 }, 
+									{ "sector": "Personal Services", "size": 4.8 }, 
+									{ "sector": "Government", "size": 11.8 } ],
+								  "1996": [ 
+									{ "sector": "Agriculture", "size": 6.4 }, 
+									{ "sector": "Mining and Quarrying", "size": 0.5 }, 
+									{ "sector": "Manufacturing", "size": 22.4 }, 
+									{ "sector": "Electricity and Water", "size": 2 }, 
+									{ "sector": "Construction", "size": 4.2 }, 
+									{ "sector": "Trade (Wholesale, Retail, Motor)", "size": 14.8 }, 
+									{ "sector": "Transport and Communication", "size": 9.7 }, 
+									{ "sector": "Finance, real estate and business services", "size": 22 }, 
+									{ "sector": "Personal Services", "size": 4.9 }, 
+									{ "sector": "Government", "size": 13.2 } ],
+								  "1997": [ 
+									{ "sector": "Agriculture", "size": 6.1 }, 
+									{ "sector": "Mining and Quarrying", "size": 0.2 }, 
+									{ "sector": "Manufacturing", "size": 20.9 }, 
+									{ "sector": "Electricity and Water", "size": 1.8 }, 
+									{ "sector": "Construction", "size": 4.2 }, 
+									{ "sector": "Trade (Wholesale, Retail, Motor)", "size": 13.7 }, 
+									{ "sector": "Transport and Communication", "size": 9.4 }, 
+									{ "sector": "Finance, real estate and business services", "size": 22.1 }, 
+									{ "sector": "Personal Services", "size": 4.7 }, 
+									{ "sector": "Government", "size": 17.5 } ],
+								  "1998": [ 
+									{ "sector": "Agriculture", "size": 6.2 }, 
+									{ "sector": "Mining and Quarrying", "size": 0.3 }, 
+									{ "sector": "Manufacturing", "size": 21.4 }, 
+									{ "sector": "Electricity and Water", "size": 1.9 }, 
+									{ "sector": "Construction", "size": 4.2 }, 
+									{ "sector": "Trade (Wholesale, Retail, Motor)", "size": 14.5 }, 
+									{ "sector": "Transport and Communication", "size": 10.6 }, 
+									{ "sector": "Finance, real estate and business services", "size": 23 }, 
+									{ "sector": "Personal Services", "size": 5.2 }, 
+									{ "sector": "Government", "size": 12.5 } ],
+								  "1999": [ 
+									{ "sector": "Agriculture", "size": 5.7 }, 
+									{ "sector": "Mining and Quarrying", "size": 0.2 }, 
+									{ "sector": "Manufacturing", "size": 20 }, 
+									{ "sector": "Electricity and Water", "size": 1.8 }, 
+									{ "sector": "Construction", "size": 4.4 }, 
+									{ "sector": "Trade (Wholesale, Retail, Motor)", "size": 15.2 }, 
+									{ "sector": "Transport and Communication", "size": 10.5 }, 
+									{ "sector": "Finance, real estate and business services", "size": 24.7 }, 
+									{ "sector": "Personal Services", "size": 5.3 }, 
+									{ "sector": "Government", "size": 11.8 } ],
+								  "2000": [ 
+									{ "sector": "Agriculture", "size": 5.1 }, 
+									{ "sector": "Mining and Quarrying", "size": 0.3 }, 
+									{ "sector": "Manufacturing", "size": 20.4 }, 
+									{ "sector": "Electricity and Water", "size": 1.7 }, 
+									{ "sector": "Construction", "size": 4 }, 
+									{ "sector": "Trade (Wholesale, Retail, Motor)", "size": 16.3 }, 
+									{ "sector": "Transport and Communication", "size": 10.7 }, 
+									{ "sector": "Finance, real estate and business services", "size": 24.6 }, 
+									{ "sector": "Personal Services", "size": 5.5 }, 
+									{ "sector": "Government", "size": 11.1 } ],
+								  "2001": [ 
+									{ "sector": "Agriculture", "size": 5.5 }, 
+									{ "sector": "Mining and Quarrying", "size": 0.2 }, 
+									{ "sector": "Manufacturing", "size": 20.3 }, 
+									{ "sector": "Electricity and Water", "size": 1.6 }, 
+									{ "sector": "Construction", "size": 3.1 }, 
+									{ "sector": "Trade (Wholesale, Retail, Motor)", "size": 16.3 }, 
+									{ "sector": "Transport and Communication", "size": 10.7 }, 
+									{ "sector": "Finance, real estate and business services", "size": 25.8 }, 
+									{ "sector": "Personal Services", "size": 5.5 }, 
+									{ "sector": "Government", "size": 10.7 } ],
+								  "2002": [ 
+									{ "sector": "Agriculture", "size": 5.7 }, 
+									{ "sector": "Mining and Quarrying", "size": 0.2 }, 
+									{ "sector": "Manufacturing", "size": 20.5 }, 
+									{ "sector": "Electricity and Water", "size": 1.6 }, 
+									{ "sector": "Construction", "size": 3.6 }, 
+									{ "sector": "Trade (Wholesale, Retail, Motor)", "size": 16.1 }, 
+									{ "sector": "Transport and Communication", "size": 10.7 }, 
+									{ "sector": "Finance, real estate and business services", "size": 26 }, 
+									{ "sector": "Personal Services", "size": 5.5 }, 
+									{ "sector": "Government", "size": 10.1 } ],
+								  "2003": [ 
+									{ "sector": "Agriculture", "size": 4.9 }, 
+									{ "sector": "Mining and Quarrying", "size": 0.2 }, 
+									{ "sector": "Manufacturing", "size": 19.4 }, 
+									{ "sector": "Electricity and Water", "size": 1.5 }, 
+									{ "sector": "Construction", "size": 3.3 }, 
+									{ "sector": "Trade (Wholesale, Retail, Motor)", "size": 16.2 }, 
+									{ "sector": "Transport and Communication", "size": 11 }, 
+									{ "sector": "Finance, real estate and business services", "size": 27.5 }, 
+									{ "sector": "Personal Services", "size": 5.6 }, 
+									{ "sector": "Government", "size": 9.9 } ],
+								  "2004": [ 
+									{ "sector": "Agriculture", "size": 4.7 }, 
+									{ "sector": "Mining and Quarrying", "size": 0.2 }, 
+									{ "sector": "Manufacturing", "size": 18.4 }, 
+									{ "sector": "Electricity and Water", "size": 1.4 }, 
+									{ "sector": "Construction", "size": 3.3 }, 
+									{ "sector": "Trade (Wholesale, Retail, Motor)", "size": 16.9 }, 
+									{ "sector": "Transport and Communication", "size": 10.6 }, 
+									{ "sector": "Finance, real estate and business services", "size": 28.1 }, 
+									{ "sector": "Personal Services", "size": 5.5 }, 
+									{ "sector": "Government", "size": 9.4 } ],
+								  "2005": [ 
+									{ "sector": "Agriculture", "size": 4.3 }, 
+									{ "sector": "Mining and Quarrying", "size": 0.2 }, 
+									{ "sector": "Manufacturing", "size": 18.1 }, 
+									{ "sector": "Electricity and Water", "size": 1.4 }, 
+									{ "sector": "Construction", "size": 3.9 }, 
+									{ "sector": "Trade (Wholesale, Retail, Motor)", "size": 15.7 }, 
+									{ "sector": "Transport and Communication", "size": 10.6 }, 
+									{ "sector": "Finance, real estate and business services", "size": 29.1 }, 
+									{ "sector": "Personal Services", "size": 5.7 }, 
+									{ "sector": "Government", "size": 9.2 } ],
+								  "2006": [ 
+									{ "sector": "Agriculture", "size": 4 }, 
+									{ "sector": "Mining and Quarrying", "size": 0.2 }, 
+									{ "sector": "Manufacturing", "size": 16.5 }, 
+									{ "sector": "Electricity and Water", "size": 1.3 }, 
+									{ "sector": "Construction", "size": 3.7 }, 
+									{ "sector": "Trade (Wholesale, Retail, Motor)", "size": 14.2 }, 
+									{ "sector": "Transport and Communication", "size": 12.1 }, 
+									{ "sector": "Finance, real estate and business services", "size": 29.1 }, 
+									{ "sector": "Personal Services", "size": 5.9 }, 
+									{ "sector": "Government", "size": 10.7 } ],
+								  "2007": [ 
+									{ "sector": "Agriculture", "size": 4.7 }, 
+									{ "sector": "Mining and Quarrying", "size": 0.2 }, 
+									{ "sector": "Manufacturing", "size": 16.2 }, 
+									{ "sector": "Electricity and Water", "size": 1.2 }, 
+									{ "sector": "Construction", "size": 4.1 }, 
+									{ "sector": "Trade (Wholesale, Retail, Motor)", "size": 15.6 }, 
+									{ "sector": "Transport and Communication", "size": 11.2 }, 
+									{ "sector": "Finance, real estate and business services", "size": 30.4 }, 
+									{ "sector": "Personal Services", "size": 5.8 }, 
+									{ "sector": "Government", "size": 8.3 } ],
+								  "2008": [ 
+									{ "sector": "Agriculture", "size": 4.9 }, 
+									{ "sector": "Mining and Quarrying", "size": 0.3 }, 
+									{ "sector": "Manufacturing", "size": 17.2 }, 
+									{ "sector": "Electricity and Water", "size": 1.4 }, 
+									{ "sector": "Construction", "size": 5.1 }, 
+									{ "sector": "Trade (Wholesale, Retail, Motor)", "size": 15.4 }, 
+									{ "sector": "Transport and Communication", "size": 11.1 }, 
+									{ "sector": "Finance, real estate and business services", "size": 28.4 }, 
+									{ "sector": "Personal Services", "size": 6 }, 
+									{ "sector": "Government", "size": 8.5 } ],
+								  "2009": [ 
+									{ "sector": "Agriculture", "size": 4.7 }, 
+									{ "sector": "Mining and Quarrying", "size": 0.3 }, 
+									{ "sector": "Manufacturing", "size": 16.4 }, 
+									{ "sector": "Electricity and Water", "size": 1.9 }, 
+									{ "sector": "Construction", "size": 4.9 }, 
+									{ "sector": "Trade (Wholesale, Retail, Motor)", "size": 15.5 }, 
+									{ "sector": "Transport and Communication", "size": 10.9 }, 
+									{ "sector": "Finance, real estate and business services", "size": 27.9 }, 
+									{ "sector": "Personal Services", "size": 6.6 }, 
+									{ "sector": "Government", "size": 9.9 } ],
+								  "2010": [ 
+									{ "sector": "Agriculture", "size": 4.2 }, 
+									{ "sector": "Mining and Quarrying", "size": 0.3 }, 
+									{ "sector": "Manufacturing", "size": 16.2 }, 
+									{ "sector": "Electricity and Water", "size": 2.2 }, 
+									{ "sector": "Construction", "size": 4.3 }, 
+									{ "sector": "Trade (Wholesale, Retail, Motor)", "size": 15.7 }, 
+									{ "sector": "Transport and Communication", "size": 10.2 }, 
+									{ "sector": "Finance, real estate and business services", "size": 28.8 }, 
+									{ "sector": "Personal Services", "size": 6.8 }, 
+									{ "sector": "Government", "size": 10.2 } ],
+								  "2011": [ 
+									{ "sector": "Agriculture", "size": 4.1 }, 
+									{ "sector": "Mining and Quarrying", "size": 0.3 }, 
+									{ "sector": "Manufacturing", "size": 14.9 }, 
+									{ "sector": "Electricity and Water", "size": 2.3 }, 
+									{ "sector": "Construction", "size": 5 }, 
+									{ "sector": "Trade (Wholesale, Retail, Motor)", "size": 17.3 }, 
+									{ "sector": "Transport and Communication", "size": 10.2 }, 
+									{ "sector": "Finance, real estate and business services", "size": 27.2 }, 
+									{ "sector": "Personal Services", "size": 6.7 }, 
+									{ "sector": "Government", "size": 10.4 } ],
+								  "2012": [ 
+									{ "sector": "Agriculture", "size": 3.8 }, 
+									{ "sector": "Mining and Quarrying", "size": 0.3 }, 
+									{ "sector": "Manufacturing", "size": 14.9 }, 
+									{ "sector": "Electricity and Water", "size": 2.6 }, 
+									{ "sector": "Construction", "size": 5.1 }, 
+									{ "sector": "Trade (Wholesale, Retail, Motor)", "size": 15.8 }, 
+									{ "sector": "Transport and Communication", "size": 10.7 }, 
+									{ "sector": "Finance, real estate and business services", "size": 28 }, 
+									{ "sector": "Personal Services", "size": 6.8 }, 
+									{ "sector": "Government", "size": 10.3 } ],
+								  "2013": [ 
+									{ "sector": "Agriculture", "size": 3.7 }, 
+									{ "sector": "Mining and Quarrying", "size": 0.2 }, 
+									{ "sector": "Manufacturing", "size": 14.9 }, 
+									{ "sector": "Electricity and Water", "size": 2.7 }, 
+									{ "sector": "Construction", "size": 5.7 }, 
+									{ "sector": "Trade (Wholesale, Retail, Motor)", "size": 16.5 }, 
+									{ "sector": "Transport and Communication", "size": 10.5 }, 
+									{ "sector": "Finance, real estate and business services", "size": 26.6 }, 
+									{ "sector": "Personal Services", "size": 6.6 }, 
+									{ "sector": "Government", "size": 10.6 } ],
+								  "2014": [ 
+									{ "sector": "Agriculture", "size": 3.9 }, 
+									{ "sector": "Mining and Quarrying", "size": 0.2 }, 
+									{ "sector": "Manufacturing", "size": 14.5 }, 
+									{ "sector": "Electricity and Water", "size": 2.7 }, 
+									{ "sector": "Construction", "size": 5.6 }, 
+									{ "sector": "Trade (Wholesale, Retail, Motor)", "size": 16.6 }, 
+									{ "sector": "Transport and Communication", "size": 10.5 }, 
+									{ "sector": "Finance, real estate and business services", "size": 26.5 }, 
+									{ "sector": "Personal Services", "size": 6.4 }, 
+									{ "sector": "Government", "size": 10.7 } ]
+								};
+
+
+								/**
+								 * Create the chart
+								 */
+								var currentYear = 1995;
+								var chart = AmCharts.makeChart( "chartdiv1", {
+								  "type": "pie",
+								  "theme": "light",
+								  "dataProvider": [],
+								  "valueField": "size",
+								  "titleField": "sector",
+								  "startDuration": 0,
+								  "innerRadius": 80,
+								  "pullOutRadius": 20,
+								  "marginTop": 30,
+								  "titles": [{
+									"text": "South African Economy"
+								  }],
+								  "allLabels": [{
+									"y": "54%",
+									"align": "center",
+									"size": 25,
+									"bold": true,
+									"text": "1995",
+									"color": "#555"
+								  }, {
+									"y": "49%",
+									"align": "center",
+									"size": 15,
+									"text": "Year",
+									"color": "#555"
+								  }],
+								  "listeners": [ {
+									"event": "init",
+									"method": function( e ) {
+									  var chart = e.chart;
+									  
+									  function getCurrentData() {
+										var data = chartData[currentYear];
+										currentYear++;
+										if (currentYear > 2014)
+										  currentYear = 1995;
+										return data;
+									  }
+									  
+									  function loop() {
+										chart.allLabels[0].text = currentYear;
+										var data = getCurrentData();
+										chart.animateData( data, {
+										  duration: 2000,
+										  complete: function() {
+											setTimeout( loop, 6000 );
+										  }
+										} );
+									  }
+
+									  loop();
+									}
+								  } ],
+								   "export": {
+								   "enabled": true
+								  }
+								} );		
+							
+							</script>
+							
+							<div id="chartdiv1"></div>					
+
+								<style>
+								#chartdiv1 {
+										width		: 100%;
+										height		: 400px;
+										font-size	: 11px;
+								}					
+								</style>
+							
+							
 					</div>
 				</div>
+				
+				
+				<!--End-->
+
 			</div><!--/row-->
 
-			<div class="row-fluid">
-
-				<div class="widget span6" onTablet="span6" onDesktop="span6">
-					<h2><span class="glyphicons facebook"><i></i></span>Facebook Fans</h2>
-					<hr>
-					<div class="content">
-						<div id="facebookChart" style="height:300px" ></div>
-					</div>
-				</div><!--/span-->
-
-				<div class="widget span6" onTablet="span6" onDesktop="span6">
-					<h2><span class="glyphicons twitter"><i></i></span>Twitter Followers</h2>
-					<hr>
-					<div class="content">
-						<div id="twitterChart" style="height:300px" ></div>
-					</div>
-				</div><!--/span-->
-
-			</div>
-
+			<hr>
 
 
 	</div><!--/.fluid-container-->
