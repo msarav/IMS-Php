@@ -172,12 +172,12 @@ if(isset($_SESSION['UserID']))
       								<label class="control-label">Semester Registered</label>
       								<div class="controls">
       								  <label class="radio">
-      									           <input type="radio" name="Sem_Regtd" id="Sem_Regtd_fall" value="fall" checked="">
+      									           <input type="radio" name="Sem_Regtd" id="Sem_Regtd_fall" value="Fall" checked="">
       									                    Fall
       								  </label>
       								  <div style="clear:both"></div>
       								  <label class="radio">
-      									           <input type="radio" name="Sem_Regtd" id="Sem_Regtd_winter" value="winter">
+      									           <input type="radio" name="Sem_Regtd" id="Sem_Regtd_winter" value="Winter">
       									                    Winter
                         </label>
       								</div>

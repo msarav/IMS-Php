@@ -142,7 +142,7 @@ if(isset($_SESSION['UserID']))
 						</div>
 					</div>
 				<div class ="box-content">	
-				<form action="test.php" method="post">
+				<form action="../Controller/Upload_viewdetails_controller.php" method="post">
 				
 					<table cellspacing="5em" cellpadding="15" >
 					<br>
@@ -223,12 +223,18 @@ if(isset($_SESSION['UserID']))
 					
 					
 					<div class="control-group">
-						<label class="control-label" for="selectError3">Batch</label>
+						<label class="control-label" for="batch">Batch</label>
 							<div class="controls">
-								  <select id="selectError4" data-rel="chosen"  name="batch">
+								  <select id="batch" data-rel="chosen"  name="batch">
 									<option  selected value> -- Select an option -- </option>
-									<option>Option 4</option>
-									<option>Option 5</option>
+									<?
+									   foreach($View_Details_Batch as $batch)
+									   {
+									?>
+											<option value="<? echo $batch; ?>"><? echo $batch; ?></option>
+									<?
+									   }
+									?>
 								  </select>
 							</div>
 					</div>
@@ -271,13 +277,14 @@ if(isset($_SESSION['UserID']))
 								<label class="control-label" for="selectError6">Skills</label>
 								<div class="controls">
 								  <select id="selectError6" multiple data-rel="chosen" name="skills[]">
-									<option>DB</option>
-									<option>PHP</option>
-									<option>Java</option>
-									<option>Research Project</option>
-									<option>MAC Project</option>
-									<option>Other</option>
-									<option>Without any job</option>
+									<?
+									   foreach($View_Details_Skills as $skill)
+									   {
+									?>
+											<option value="<? echo $skill; ?>"><? echo $skill; ?></option>
+									<?
+									   }
+									?>
 								  </select>
 								</div>
 							  </div>
@@ -287,12 +294,18 @@ if(isset($_SESSION['UserID']))
 					<td>
 					
 					<div class="control-group">
-						<label class="control-label" for="selectError3">Certification</label>
+						<label class="control-label" for="certification">Certification</label>
 							<div class="controls">
-								  <select id="selectError7" data-rel="chosen"  name="certification">
+								  <select id="certification" data-rel="chosen"  name="certification">
 									<option  selected value> -- Select an option -- </option>
-									<option>Option 4</option>
-									<option>Option 5</option>
+									<?
+									   foreach($View_Details_Certification as $certification)
+									   {
+									?>
+											<option value="<? echo $certification; ?>"><? echo $certification; ?></option>
+									<?
+									   }
+									?>
 								  </select>
 							</div>
 					</div>
@@ -327,6 +340,31 @@ if(isset($_SESSION['UserID']))
 					</div>
 					</td>
 					</tr>
+					
+					<tr>
+					<td>
+					<div class="control-group">
+						<label class="control-label" for="jobgroups">Job Groups</label>
+							<div class="controls">
+								  <select id="jobgroups" data-rel="chosen"  name="experience">
+									<option  selected value> -- Select an option -- </option>
+									<option>Web Development</option>
+									<option>Mobile Development</option>
+									<option>System Development</option>
+									<option>Technical Support</option>
+									<option>Networking</option>
+									<option>Data Analysis</option>
+									<option>Testing</option>
+									<option>Security</option>
+									<option>Data Management</option>
+									<option>Other</option>
+								  </select>
+							</div>
+					</div>
+					</td>
+					</tr>
+					
+					
 					<tr>
 					<td colspan="2" align="center">
 					 <input type="submit" value="Submit" />
