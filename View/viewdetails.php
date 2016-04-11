@@ -10,7 +10,6 @@ if(isset($_SESSION['UserID']))
 	$Username = $_SESSION['User Name'];
 	$ProfileType =$_SESSION['User Type'];
 
-	include("../Controller/View_Controller.php");
 ?>
 <html lang="en">
 <head>
@@ -44,10 +43,27 @@ if(isset($_SESSION['UserID']))
 		<link id="ie9style" href="css/ie9.css" rel="stylesheet">
 	<![endif]-->
 
+ <style>
+   body .modal_lg {
+     width: 75%; /* desired relative width */
+     left: 15%; /* (100%-width)/2 */
+     /* place center */
+     margin-left:auto;
+     margin-right:auto;
+   }
+ </style>
+
 	<!-- start: Favicon -->
 	<link rel="shortcut icon" href="../img/favicon.ico">
 	<!-- end: Favicon -->
+  <script>
 
+  function check_upload_form()
+  {
+    return true;
+  }
+
+</script>
 </head>
 
 <body>
@@ -66,6 +82,12 @@ if(isset($_SESSION['UserID']))
 					<ul class="nav pull-right">
 
 						<!-- start: User Dropdown -->
+            <li class="dropdown">
+              <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="halflings-icon white user"></i>
+                Access level: <? echo $ProfileType; ?>
+              </a>
+            </li>
 						<li class="dropdown">
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 								<i class="halflings-icon white user"></i> <?echo 	$Username;?>
@@ -91,22 +113,33 @@ if(isset($_SESSION['UserID']))
 
 		<div class="container-fluid-full" >
 			<div class="row-fluid" >
+        <!-- start: Main Menu -->
+        <div id="sidebar-left" class="span2" >
+          <div class="nav-collapse sidebar-nav">
+            <ul class="nav nav-tabs nav-stacked main-menu">
 
-				<!-- start: Main Menu -->
-				<div id="sidebar-left" class="span2" >
-					<div class="nav-collapse sidebar-nav">
-						<ul class="nav nav-tabs nav-stacked main-menu">
-							<li><a href="../View/Dashboard.php"><i class="icon-bar-chart"></i><span class="active hidden-tablet"> Dashboard</span></a></li>
-							<li><a href="../View/Upload_form.php "><i class="icon-edit"></i><span class="hidden-tablet"> Upload Details</span></a></li>
-							<li><a href="../View/viewdetails.php "><i class="icon-align-justify"></i><span class="hidden-tablet"> View Details</span></a></li>
+              <? if($ProfileType == "Admin") { ?>
 
-							<li><a href="../View/chart.php "><i class="icon-list-alt"></i><span class="hidden-tablet"> Charts</span></a></li>
-							<li><a href="../View/calendar.php"><i class="icon-calendar"></i><span class="hidden-tablet"> Calendar</span></a></li>
-							<li><a href="../View/file-manager.php"><i class="icon-folder-open"></i><span class="hidden-tablet"> CV Manager</span></a></li>
+                    <li><a href="../View/Dashboard.php"><i class="icon-bar-chart"></i><span class="active hidden-tablet"> Dashboard</span></a></li>
+                    <li><a href="../Controller/Upload_interndetails_Controller.php "><i class="icon-download-alt"></i><span class="hidden-tablet"> Positions</span></a></li>
+                    <li><a href="../View/Upload_form.php "><i class="icon-edit"></i><span class="hidden-tablet"> Upload Details</span></a></li>
+                    <li><a href="../Controller/View_Controller.php "><i class="icon-align-justify"></i><span class="hidden-tablet"> View Details</span></a></li>
 
-						</ul>
-					</div>
-				</div>
+                    <li><a href="../View/chart.php "><i class="icon-signal"></i><span class="hidden-tablet"> Analysis</span></a></li>
+                    <li><a href="../View/calendar.php"><i class="icon-calendar"></i><span class="hidden-tablet"> Calendar</span></a></li>
+                    <li><a href="../View/file-manager.php"><i class="icon-folder-open"></i><span class="hidden-tablet"> CV Manager</span></a></li>
+
+              <? }
+                else { ?>
+                      <li><a href="../View/Dashboard.php"><i class="icon-bar-chart"></i><span class="active hidden-tablet"> Dashboard</span></a></li>
+                      <li><a href="../Controller/Upload_interndetails_Controller.php"><i class="icon-download-alt"></i><span class="active hidden-tablet"> Positions </span></a></li>
+                      <li><a href="../Controller/Upload_Controller.php "><i class="icon-edit"></i><span class="hidden-tablet"> View/Update Details</span></a></li>
+
+              <?  } ?>
+            </ul>
+          </div>
+        </div>
+
 				<!-- end: Main Menu -->
 
 			<noscript>
@@ -131,148 +164,171 @@ if(isset($_SESSION['UserID']))
 
 
 			<!-- Start : Inputs for Query -->
-			
-			<div class="row-fluid sortable">		
+
+			<div class="row-fluid sortable">
 				<div class="box span12">
 					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon white user"></i><span class="break"></span>Queries</h2>
+						<h2><i class="halflings-icon white user"></i>
+              <span class="break"></span>
+              <span class="col-md-4" > Queries  </span>
+              <span class="col-md-5" style="margin-left: 10em;"> </span>
+              <span class="col-md-4" style="margin-left: 27em;">
+                <?
+                 if(isset($_GET['count_qry']))
+                 {
+                   if($_GET['count_qry'] == 0)
+                   {
+                         echo $_GET['count_qry']." Records found.. Try Again..";
+
+                   }
+                   else {
+                     # code...
+                     if($_GET['count_qry'] > 1)
+                        echo $_GET['count_qry']." Records found..";
+                     else
+                        echo $_GET['count_qry']." Record found..";
+
+                   }
+
+                 }
+
+                ?>
+              </span>
+            </h2>
 						<div class="box-icon">
 							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
 							<a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>
 						</div>
 					</div>
-				<div class ="box-content">	
-				<form action="../Controller/Upload_viewdetails_controller.php" method="post">
-				
+				<div class ="box-content">
+				<form action="../Controller/View_Controller.php" method="post">
+
 					<table cellspacing="5em" cellpadding="15" >
-					<br>
+					       <br>
 					<tr>
-					<td align="center">
+    					<td align="center">
+
+    					<input type="submit" name="View_details_form" value="All students" />
+
+    					</td>
+						
+						<td align="center">
+
+    					<input type="submit" name="Without_any_job" value="Without any job" />
+
+    					</td>
+
+    					<td>
+
+      					<div class="control-group">
+      								<label class="control-label" for="selectError1">Internship Type</label>
+      								<div class="controls">
+      								  <select id="selectError1" multiple data-rel="chosen" name="intern_type[]">
+          									<option>Company - Paid job</option>
+          									<option>Company - Unpaid job</option>
+          									<option>Startup company</option>
+          									<option>Research Project</option>
+          									<option>MAC Project</option>
+          									<option>Other</option>
+          								
+
+      								  </select>
+      								</div>
+      					</div>
+
+    					</td>
+
+    					<td>
+
+        					<div class="control-group">
+        						<label class="control-label" for="joblocation">Job Location</label>
+        							<div class="controls">
+        								  <select id="joblocation" data-rel="chosen"  name="joblocation" >
+        									<option  selected value> -- Select an option -- </option>
+        									<?
+        									   foreach($View_Details_Joblocation as $location)
+        									   {
+        									?>
+        											<option value="<? echo $location; ?>"><? echo $location; ?></option>
+        									<?
+        									   }
+        									?>
+
+        								  </select>
+        							</div>
+        					</div>
+
+    					</td>
+
 					
-					<button class="btn btn-small btn-primary">All students</button>
-					
-					</td>
-					
-					<td>
-					
-					<div class="control-group">
-								<label class="control-label" for="selectError1">Internship Type</label>
-								<div class="controls">
-								  <select id="selectError1" multiple data-rel="chosen" name="intern[]">
-									<option>Company - Paid job</option>
-									<option>Company - Unpaid job</option>
-									<option>Start up company</option>
-									<option>Research Project</option>
-									<option>MAC Project</option>
-									<option>Other</option>
-									<option>Without any job</option>
-								  </select>
-								</div>
-							  </div>
-					
-					</td>
-					
-					<td>
-					
-					<div class="control-group">
-						<label class="control-label" for="joblocation">Job Location</label>
-							<div class="controls">
-								  <select id="joblocation" data-rel="chosen"  name="joblocation" >
-									<option  selected value> -- Select an option -- </option>
-									<?
-									   foreach($View_Details_Joblocation as $location)
-									   {
-									?>
-											<option value="<? echo $location; ?>"><? echo $location; ?></option>
-									<?
-									   }
-									?>
-									
-								  </select>
-							</div>
-					</div>
-					
-					</td>
-					
-					<td>
-					
-					<div class="control-group">
-						<label class="control-label" for="country">Country</label>
-							<div class="controls">
-								  <select id="country" data-rel="chosen"  name="country">
-									<option  selected value> -- Select an option -- </option>
-									<?
-									   foreach($View_Details_Country as $country)
-									   {
-									?>
-											<option value="<? echo $country; ?>"><? echo $country; ?></option>
-									<?
-									   }
-									?>
-								  </select>
-							</div>
-					</div>
-					
-									
-					</td>
-					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 					</tr>
-					
+
 					<tr>
-					<td>
-					
-					
-					<div class="control-group">
-						<label class="control-label" for="batch">Batch</label>
-							<div class="controls">
-								  <select id="batch" data-rel="chosen"  name="batch">
-									<option  selected value> -- Select an option -- </option>
-									<?
-									   foreach($View_Details_Batch as $batch)
-									   {
-									?>
-											<option value="<? echo $batch; ?>"><? echo $batch; ?></option>
-									<?
-									   }
-									?>
-								  </select>
-							</div>
-					</div>
-					
-					</td>
-					
-					<td>
-					
-					<div class="control-group">
-						<label class="control-label" for="selectError5">GPA</label>
-							<div class="controls">
-								  <select id="selectError5" data-rel="chosen"  name="gpa">
-									<option  selected value> -- Select an option -- </option>
-									<option>Under Graduate</option>
-									<option>Graduate</option>
-								  </select>
-							</div>
-					</div>
-								  			  
-								  
-							
-					</td>
-					
-					<td>
-					From 
-					<br><input type="text" size="2" name="from" placeholder="/10" maxlength="4" style="width:100px"  >
-					</td>
-					<td>
-					To 
-					<br>
-					<input type="text"  name="to" id="gpato" placeholder="/10" maxlength="4" size="2" style="width:100px" />
-					</td>
+  					  <td>
+                <div class="control-group">
+      						<label class="control-label" for="batch">Batch</label>
+      							<div class="controls">
+      								  <select id="batch" data-rel="chosen"  name="batch">
+      									<option  selected value> -- Select an option -- </option>
+      									<?
+      									   foreach($View_Details_Batch as $batch)
+      									   {
+      									?>
+      											<option value="<? echo $batch; ?>"><? echo $batch; ?></option>
+      									<?
+      									   }
+      									?>
+      								  </select>
+      							</div>
+      					</div>
+            </td>
+
+  					<td>
+    					<div class="control-group">
+    						<label class="control-label" for="selectError5">Degree</label>
+    							<div class="controls">
+    								  <select id="selectError5" data-rel="chosen"  name="degree">
+    									<option  selected value> -- Select an option -- </option>
+    									<option>Under Graduate</option>
+    									<option>Graduate</option>
+    								  </select>
+    							</div>
+    					</div>
+  					</td>
+
+  					<td>
+    					From
+    					<br><input type="text" size="2" name="gpa_from" placeholder="/10" maxlength="4" style="width:100px"  >
+  					</td>
+  					<td>
+    					To
+    					<br>
+    					<input type="text"  name="gpa_to" id="gpa_to" placeholder="/10" maxlength="4" size="2" style="width:100px" />
+  					</td>
 					</tr>
 					<!--</div>-->
-					
+
 					<tr>
 					<td>
-					
+
 					<div class="control-group">
 								<label class="control-label" for="selectError6">Skills</label>
 								<div class="controls">
@@ -288,11 +344,11 @@ if(isset($_SESSION['UserID']))
 								  </select>
 								</div>
 							  </div>
-					
+
 					</td>
-					
+
 					<td>
-					
+
 					<div class="control-group">
 						<label class="control-label" for="certification">Certification</label>
 							<div class="controls">
@@ -310,937 +366,241 @@ if(isset($_SESSION['UserID']))
 							</div>
 					</div>
 					</td>
-					
+
 					<td>
 					<div class="control-group">
 						<label class="control-label" for="selectError8">Experience</label>
 							<div class="controls">
 								  <select id="selectError8" data-rel="chosen"  name="experience">
-									<option  selected value> -- Select an option -- </option>
-									<option>No Work Experience</option>
-									<option><1 year</option>
-									<option>1-3 years</option>
-									<option>> 3 years</option>
+    									<option  selected value> -- Select an option -- </option>
+    									<option>No Work Experience</option>
+    									<option><1 year</option>
+    									<option>1-3 years</option>
+    									<option>> 3 years</option>
 								  </select>
 							</div>
 					</div>
 					</td>
-					
-					<td>
-					<div class="control-group">
-						<label class="control-label" for="selectError9">Gender</label>
-							<div class="controls">
-								  <select id="selectError9" data-rel="chosen"  name="gender">
-									<option selected>All</option>
-									<option>Male</option>
-									<option>Female</option>
-									
-								  </select>
-							</div>
-					</div>
-					</td>
-					</tr>
-					
-					<tr>
-					<td>
-					<div class="control-group">
-						<label class="control-label" for="jobgroups">Job Groups</label>
-							<div class="controls">
-								  <select id="jobgroups" data-rel="chosen"  name="experience">
-									<option  selected value> -- Select an option -- </option>
-									<option>Web Development</option>
-									<option>Mobile Development</option>
-									<option>System Development</option>
-									<option>Technical Support</option>
-									<option>Networking</option>
-									<option>Data Analysis</option>
-									<option>Testing</option>
-									<option>Security</option>
-									<option>Data Management</option>
-									<option>Other</option>
-								  </select>
-							</div>
-					</div>
-					</td>
-					</tr>
-					
-					
-					<tr>
-					<td colspan="2" align="center">
-					 <input type="submit" value="Submit" />
-					</td>
-					<td colspan="2" align="center">
-					<button onclick="myFunction()">Print</button>
 
-					<script>
-					function myFunction() {
-					window.print();
-					}
-					</script>
+					
+					<td>
+
+    					<div class="control-group">
+    						<label class="control-label" for="jobgroups">Job Groups</label>
+    							<div class="controls">
+    								  <select id="jobgroups" data-rel="chosen"  name="job_group">
+
+                        <option value=""> -- Select an option --  </option>
+                        <?
+                           foreach($View_Details_JobGroup as $Job_group)
+                           {
+                        ?>
+                            <option value="<? echo $Job_group; ?>"><? echo $Job_group; ?></option>
+                        <?
+                           }
+                        ?>
+
+						</select>
+
+    								  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    							</div>
+    					</div>
+  					</td>
+					
+					</tr>
+
+					<tr>
+					<td>
+  					<div class="control-group">
+						<label class="control-label" for="selectError9">Gender</label>
+							<div class="controls span2">
+								  <select id="selectError2" data-rel="chosen"  name="gender">
+    									<option selected>All</option>
+    									<option>Male</option>
+    									<option>Female</option>
+
+								  </select>
+							</div>
+					</div>
+					</td>
+					
+					<td>
+              <div class="control-group">
+  						  <label class="control-label" for="country">Country</label>
+  							<div class="controls">
+  								  <select id="country" data-rel="chosen"  name="country">
+  									<option  selected value> -- Select an option -- </option>
+  									<?
+  									   foreach($View_Details_Country as $country)
+  									   {
+  									?>
+  											<option value="<? echo $country; ?>"><? echo $country; ?></option>
+  									<?
+  									   }
+  									?>
+  								  </select>
+  							</div>
+  					</div>
 					</td>
 					</tr>
+
+  					<tr>
+    					<td colspan="2" align="center">
+    					       <input type="submit" name="View_details_form" value="Submit" />
+    					</td>
+    					<td colspan="2" align="center">
+      					<button onclick="myFunction()">Print</button>
+
+      					<script>
+      					function myFunction() {
+      					window.print();
+      					}
+      					</script>
+    					</td>
+  					</tr>
 					</table>
-					
-					
+
 				</form>
 
 			</div>
 			</div>
-			</div>
-			
+			</div
+
 			<!-- End : Inputs for Query -->
-			
-			
-			<!-- Start : Modal -->
-			
-			<!--<a href="#openModal1">Open Modal</a>-->
-
-
-			
-			
-			
-			<div id="openModal1" class="modalDialog" >
-				<div style="border:1px solid black;">	<a href="#close" title="Close" class="close">X</a>
-
-						
-						<br>
-						<br>
-						<br>
-						
-						<div class="box span11" style="margin-left:2em;" >
-							<div class="box-header" >
-							<h2 style="margin-left:18em;"><b>Internship Info</b></h2>
-							</div>
-						
-							<div class="box-content">
-							  <form class="form-horizontal" name="Upload_StuPreIntern_form" action="../Controller/Upload_Controller.php" method="post" onsubmit="return check_upload_form()">
-								<fieldset>
-
-								   <div class="control-group">
-									<label class="control-label" for="Intern_type">Internship Type</label>
-									<div class="controls">
-									  <div class="input">
-										 <input id="Intern_type" name="Intern_type" size="16" type="text" readonly />
-									  </div>
-									</div>
-								  </div>
-
-								  <div class="control-group">
-									<label class="control-label" for="Company_name">Company name</label>
-									<div class="controls">
-									  <div class="input">
-										 <input id="Company_name" name="Company_name" size="16" type="text" readonly />
-									  </div>
-									</div>
-								  </div>
-
-								  <div class="control-group">
-									<label class="control-label" for="Company_addr">Company Address</label>
-									<div class="controls ">
-									  <div class="input">
-										 <input class="input-xlarge" id="Company_addr" name="Company_addr" size="30" type="text" placeholder="Address" readonly />
-										 <input class="span2" id="Company_city" name="Company_city" size="30" type="text" placeholder="City" readonly />
-										 <input class="span2" id="Company_PostalCode" name="Company_PostalCode" size="30" type="text" placeholder="Postal Code" readonly />
-									  </div>
-									</div>
-								  </div>
-								
-								 <div class="control-group">
-									<label class="control-label" for="Company_Phonenum">Org - Contact Info</label>
-									<div class="controls">
-									  <div class="input">
-										 <input class="span3" id="Company_Phonenum" name="Company_Phonenum" size="30" type="text" placeholder="Org Phone num" readonly />
-										 <input class="span4" id="Company_OrgWebsite" name="Company_OrgWebsite" size="30" type="text" placeholder="Org Website"  readonly />
-									  </div>
-									</div>
-								  </div>
-								  
-								  <div class="control-group">
-									<label class="control-label" for="Company_POC_Fname">POC - Info</label>
-									<div class="controls">
-									  <div class="input">
-										 <input class="span3" id="Company_POC_Fname" name="Company_POC_Fname" size="30" type="text" placeholder="First Name" readonly />
-										 <input class="span3" id="Company_POC_Lname" name="Company_POC_Lname" size="30" type="text" placeholder="Last Name" readonly />
-										 <input class="span4" id="Company_POCEmail" name="Company_POCEmail" size="30" type="text" placeholder="POC E-mail" readonly />
-									  </div>
-									</div>
-								  </div>
-
-								  <div class="control-group">
-									<label class="control-label" for="Company_POC_Position">POC - Position</label>
-									<div class="controls">
-									  <div class="input">
-										 <input id="Company_POC_Position" name="Company_POC_Position" size="30" type="text" readonly />
-									  </div>
-									</div>
-								  </div>
-
-								  <div class="control-group">
-									<label class="control-label" for="Intern_PositionNotes">Notes</label>
-									<div class="controls">
-									  <div class="input">
-										<textarea id="Intern_PositionNotes" rows="5" style="width:30em;" readonly ></textarea>
-									  </div>
-									</div>
-								  </div>
-
-                
-
-								</fieldset>
-							
-							  </form>
-
-							  </div>
-						
-						</div><!--/box-->
-											
-				</div>
-			</div>
-			
-<style>
-			.modalDialog {
-    position: fixed;
-    font-family: Arial, Helvetica, sans-serif;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.8);
-    z-index: 99999;
-    opacity:0;
-    -webkit-transition: opacity 400ms ease-in;
-    -moz-transition: opacity 400ms ease-in;
-    transition: opacity 400ms ease-in;
-    pointer-events: none;
-}
-.modalDialog:target {
-    opacity:1;
-    pointer-events: auto;
-}
-.close {
-    background: #606061;
-    color: #FFFFFF;
-    line-height: 25px;
-    position: absolute;
-    right: 3px;
-    text-align: center;
-    top: 0px;
-    width: 24px;
-    text-decoration: none;
-    font-weight: bold;
-    -webkit-border-radius: 12px;
-    -moz-border-radius: 12px;
-    border-radius: 12px;
-    -moz-box-shadow: 1px 1px 3px #000;
-    -webkit-box-shadow: 1px 1px 3px #000;
-    box-shadow: 1px 1px 3px #000;
-}
-.modalDialog > div {
-    width: 800px;
-	height: 400px;
-    position: relative;
-    margin: 10% auto;
-	overflow: auto;
-    padding: 5px 20px 13px 20px;
-    border-radius: 10px;
-    background: #fff;
-    
-}
-
-.close:hover {
-    background: #00d9ff;
-}
-
-		</style>	
-		
-		<script>
-		
-		function modalClose() {
-    if (location.hash == '#openModal1') {
-        location.hash = '';
-    }
-}
-
-document.addEventListener('keyup', function(e) {
-    if (e.keyCode == 27) {
-        modalClose();
-    }
-});
-
-var modal = document.querySelector('#openModal1');
-modal.addEventListener('click', function(e) {
-    modalClose();
-}, false);
-
-modal.children[0].addEventListener('click', function(e) {
-    e.stopPropagation();
-}, false);
-		
-		
-		
-		
-		
-		</script>
-			<!-- End : Modal -->
-
-
-
 
 			<div class="row-fluid sortable">
 				<div class="box span12">
 					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon white user"></i><span class="break"></span>Members</h2>
+						<h2><i class="halflings-icon white user"></i>
+              <span class="break"></span>
+              <span class="col-md-4" > Student Details </span>
+              <span class="col-md-5" style="margin-left: 10em;"> </span>
+              <span class="col-md-4" style="margin-left: 27em;">
+                <?
+                $Records = $_GET['count'];
+
+                 if(isset($_GET['Deleted_val']))
+                 {
+                   echo $_GET['Deleted_val']." Record deleted..";
+                 }
+                 elseif (isset($_GET['count']))
+                 {
+                    if($Records > 1)
+                      echo $_GET['count']." Records found..";
+                    else {
+                        # code...
+                      echo $_GET['count']." Record found..";
+                    }
+
+                 }
+
+                ?>
+              </span>
+            </h2>
 						<div class="box-icon">
 							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
 							<a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>
 						</div>
 					</div>
 					<div class="box-content">
-						<table class="table table-striped table-bordered bootstrap-datatable datatable">
-						  <thead>
-							  <tr>
-								  <th>Name</th>
-								  <th>Current Position</th>
-								  <th>Email</th>
-								  <th>Batch</th>
-								  <th>Actions</th>
-							  </tr>
-						  </thead>
-						  <tbody>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/01/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-success">Active</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#openModal1">
-										<i class="halflings-icon white user"></i>
-									</a>
-									<a class="btn btn-info" href="Upload_form.php">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/01/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-success">Active</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/01/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-success">Active</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
-									</a>
-								</td>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/01/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-success">Active</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/02/01</td>
-								<td class="center">Staff</td>
-								<td class="center">
-									<span class="label label-important">Banned</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/02/01</td>
-								<td class="center">Staff</td>
-								<td class="center">
-									<span class="label label-important">Banned</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-warning">Pending</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-warning">Pending</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/01/21</td>
-								<td class="center">Staff</td>
-								<td class="center">
-									<span class="label label-success">Active</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/01/21</td>
-								<td class="center">Staff</td>
-								<td class="center">
-									<span class="label label-success">Active</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/08/23</td>
-								<td class="center">Staff</td>
-								<td class="center">
-									<span class="label label-important">Banned</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/08/23</td>
-								<td class="center">Staff</td>
-								<td class="center">
-									<span class="label label-important">Banned</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/06/01</td>
-								<td class="center">Admin</td>
-								<td class="center">
-									<span class="label">Inactive</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/06/01</td>
-								<td class="center">Admin</td>
-								<td class="center">
-									<span class="label">Inactive</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-warning">Pending</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
+            <? if($Records == 0) {  ?>
+                <h3> No records found...</h3>
+            <? } else {?>
+              <form class="form-horizontal" name="Upload_StuPreIntern_form" action="../Controller/View_Controller.php" method="post" onsubmit="return check_upload_form()">
+    						<table class="table table-striped table-bordered bootstrap-datatable datatable">
+    						  <thead>
+    							  <tr>
+                      <th></th>
+    								  <th>Name</th>
+    								  <th>Current Position</th>
+    								  <th>Email</th>
+    								  <th>Batch</th>
+    							  </tr>
+    						  </thead>
+    						  <tbody>
+                  <?
 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-warning">Pending</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
+                    $Student_ids = array_keys($Student_details_val);
 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-warning">Pending</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
+                    foreach($Student_ids as $Student_id)
+                    {
+                  ?>
+    							<tr>
+                    <td style="text-align:center;">
+                      <input type="checkbox" name="chkbox_delete_<?echo $Student_id;?>" id="inlineCheckbox_<?echo $Student_id;?>" value="<?echo $Student_id;?>_selected">
+                    </td>
 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/01/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-success">Active</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
+                    <td>
+                      <a href="../Controller/ViewDetails_Controller.php?Student_id=<? echo $Student_id; ?>" class="open-AddBookDialog" data-toggle="modal" data-target="#StudentDetailModal"   >
+                          <? echo $Student_details_val[$Student_id]['Student_FName']." ".$Student_details_val[$Student_id]['Student_LName']; ?>
+                      </a>
+                    </td>
 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/02/01</td>
-								<td class="center">Staff</td>
-								<td class="center">
-									<span class="label label-important">Banned</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
+                    <td class="center">
+                        <?
+                          $Hired_details = Hired_details($Student_details_val[$Student_id]['idStudent']);
+                          $Hired_details_count = count($Hired_details);
 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/02/01</td>
-								<td class="center">Admin</td>
-								<td class="center">
-									<span class="label">Inactive</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
+                          if($Hired_details_count){
 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/02/01</td>
-								<td class="center">Admin</td>
-								<td class="center">
-									<span class="label">Inactive</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
+                            $Hired_Position_keys = array_keys($Hired_details);
 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-warning">Pending</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
+                            foreach ($Hired_Position_keys as $Hired_Position)
+                            { ?>
+                            <a href="../Controller/ViewDetails_Controller.php?Position_id=<? echo $Hired_Position; ?>" class="open-AddBookDialog" data-toggle="modal" data-target="#PositionDetailsModal"   >
+                                <?    echo $Hired_details[$Hired_Position]['company_name'];  ?>
+                            </a>
+                          <?  }
+                            }
+                            else {
+                              # code...
+                              echo "Available";
+                            }
 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-warning">Pending</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
+                        ?>
+                    </td>
 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/01/21</td>
-								<td class="center">Staff</td>
-								<td class="center">
-									<span class="label label-success">Active</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
+    								<td class="center"><? echo $Student_details_val[$Student_id]['Student_Email']; ?></td>
+    								<td class="center">
+    									<? echo $Student_details_val[$Student_id]['Student_RegisteredSemester']." - ".$Student_details_val[$Student_id]['Student_RegisteredYear']; ?>
+    								</td>
 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/01/21</td>
-								<td class="center">Staff</td>
-								<td class="center">
-									<span class="label label-success">Active</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
+                  <? } ?>
+    							</tr>
 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/08/23</td>
-								<td class="center">Staff</td>
-								<td class="center">
-									<span class="label label-important">Banned</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
+    						  </tbody>
+    					  </table>
 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/08/23</td>
-								<td class="center">Staff</td>
-								<td class="center">
-									<span class="label label-important">Banned</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
+                </fieldset>
 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/06/01</td>
-								<td class="center">Admin</td>
-								<td class="center">
-									<span class="label">Inactive</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
+                <fieldset>
 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-warning">Pending</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
+                <div class="form-actions">
+                  <button type="submit" name="Delete_Student_details" class="btn btn-primary">Delete </button>
 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-warning">Pending</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
+                </div>
+                </fieldset>
+              </form>
 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-warning">Pending</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
-
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-warning">Pending</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i>
-
-									</a>
-								</td>
-							</tr>
-						  </tbody>
-					  </table>
+              <? } ?>
 					</div>
 				</div><!--/span-->
 
 			</div><!--/row-->
-
-
-
 
 	</div><!--/.fluid-container-->
 
@@ -1248,13 +608,46 @@ modal.children[0].addEventListener('click', function(e) {
 		</div><!--/#content.span10-->
 		</div><!--/fluid-row-->
 
-	<div class="modal hide fade" id="myModal">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h3>Settings</h3>
-		</div>
+    <div id="StudentDetailModal" class="modal fade modal_lg" role="dialog">
+      <div class="modal-dialog modal-xlg">
 
-	</div>
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Student Details</h4>
+          </div>
+          <div class="modal-body">
+            <p>Some text in the modal.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="PositionDetailsModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-xlg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Position Details</h4>
+          </div>
+          <div class="modal-body">
+            <p>Some text in the modal.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
 
 	<div class="clearfix"></div>
 
@@ -1323,7 +716,7 @@ modal.children[0].addEventListener('click', function(e) {
 		<script src="../js/retina.js"></script>
 
 		<script src="../js/custom.js"></script>
-		
+
 	<!-- end: JavaScript-->
 
 </body>

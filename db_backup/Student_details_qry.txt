@@ -1,0 +1,52 @@
+select 
+
+		stu_details.`Student_FName`,stu_details.`Student_MName`,stu_details.`Student_LName`,stu_details.`Student_Email`,
+		stu_details.`Student_RegisteredSemester`,stu_details.`Student_RegisteredYear`,stu_details.`Student_Degree`,
+		stu_details.`Student_Phonenum`,stu_details.`Student_Gender`,stu_details.`Student_Status`,
+		
+		stu_cert.`EduDetails_Cert1Title`,stu_cert.`EduDetails_Cert1Body`,stu_cert.`EduDetails_Cert1IssuedDate`,
+		stu_cert.`EduDetails_Cert1ValidityDate`,stu_cert.`EduDetails_Cert2Title`,stu_cert.`EduDetails_Cert2Body`,
+		stu_cert.`EduDetails_Cert2IssuedDate`,stu_cert.`EduDetails_Cert2ValidityDate`,stu_cert.`EduDetails_Cert3Title`,
+		stu_cert.`EduDetails_Cert3Body`,stu_cert.`EduDetails_Cert3IssuedDate`,stu_cert.`EduDetails_Cert3ValidityDate`,
+		
+		stu_wrkexp.`WrkExp1_Company`,stu_wrkexp.`WrkExp1_FromDate`,stu_wrkexp.`WrkExp1_TillDate`,stu_wrkexp.`WrkExp1_Title`,
+		stu_wrkexp.`WrkExp1_Duties`,stu_wrkexp.`WrkExp1_Duration`,stu_wrkexp.`WrkExp2_Company`,stu_wrkexp.`WrkExp2_FromDate`,
+		stu_wrkexp.`WrkExp2_TillDate`,stu_wrkexp.`WrkExp2_Title`,stu_wrkexp.`WrkExp2_Duties`,stu_wrkexp.`WrkExp2_Duration`,
+		stu_wrkexp.`WrkExp3_Company`,stu_wrkexp.`WrkExp3_FromDate`,stu_wrkexp.`WrkExp3_TillDate`,stu_wrkexp.`WrkExp3_Title`,
+		stu_wrkexp.`WrkExp3_Duties`,stu_wrkexp.`WrkExp3_Duration`,stu_wrkexp.`WrkExp4_Company`,stu_wrkexp.`WrkExp4_FromDate`,
+		stu_wrkexp.`WrkExp4_TillDate`,stu_wrkexp.`WrkExp4_Title`,stu_wrkexp.`WrkExp4_Duties`,stu_wrkexp.`WrkExp4_Duration`,
+		
+		stu_edu.`EduDetails_UnderGradMajor`,stu_edu.`EduDetails_UnderGradDegree`,stu_edu.`EduDetails_UnderGradGPA`,
+		stu_edu.`EduDetails_UnderGradUniversity`,stu_edu.`EduDetails_UnderGradCountry`,stu_edu.`EduDetails_UnderGradDate`,
+		stu_edu.`EduDetails_GradMajor`,stu_edu.`EduDetails_GradDegree`,stu_edu.`EduDetails_GradGPA`,
+		stu_edu.`EduDetails_GradUniversity`,stu_edu.`EduDetails_GradCountry`,stu_edu.`EduDetails_GradDate`,
+		stu_edu.`EduDetails_Other1Name`,stu_edu.`EduDetails_Other1Major`,stu_edu.`EduDetails_Other1Degree`,
+		stu_edu.`EduDetails_Other1GPA`,stu_edu.`EduDetails_Other1University`,stu_edu.`EduDetails_Other1Country`,
+		stu_edu.`EduDetails_Other1Date`,stu_edu.`EduDetails_Other2Name`,stu_edu.`EduDetails_Other2Major`,
+		stu_edu.`EduDetails_Other2Degree`,stu_edu.`EduDetails_Other2GPA`,stu_edu.`EduDetails_Other2University`,
+		stu_edu.`EduDetails_Other2Country`,stu_edu.`EduDetails_Other2Date`,
+		
+		stu_skill.`skillset_linked`
+ 
+from 
+		  student_details stu_details LEFT JOIN student_certdetails stu_cert  
+      on    
+		  stu_details.idStudent_CertificationEntry = stu_cert.idStudent_CertificationEntry
+		
+		LEFT JOIN preinternship_wrkexperience stu_wrkexp 
+		
+		on
+		  stu_details.idStudent_WrkExperience = stu_wrkexp.idStudent_WrkExperience 
+		  
+   	LEFT JOIN student_edudetails stu_edu
+		
+		on
+		  stu_details.idStudent_EducationEntry = stu_edu.idStudent_EducationEntry   
+		  
+    	LEFT JOIN student_skillset stu_skill
+		
+		on
+		  stu_details.idStudent_Skillset = stu_skill.idStudent_Skillset
+
+where stu_details.`idStudent` = '104409884' 
+;

@@ -112,21 +112,19 @@ if(isset($_SESSION['UserID']))
               <? if($ProfileType == "Admin") { ?>
 
 										<li><a href="../View/Dashboard.php"><i class="icon-bar-chart"></i><span class="active hidden-tablet"> Dashboard</span></a></li>
+                    <li><a href="../Controller/Upload_interndetails_Controller.php "><i class="icon-download-alt"></i><span class="hidden-tablet"> Positions</span></a></li>
 										<li><a href="../View/Upload_form.php "><i class="icon-edit"></i><span class="hidden-tablet"> Upload Details</span></a></li>
-										<li><a href="../View/viewdetails.php "><i class="icon-align-justify"></i><span class="hidden-tablet"> View Details</span></a></li>
+										<li><a href="../Controller/View_Controller.php "><i class="icon-align-justify"></i><span class="hidden-tablet"> View Details</span></a></li>
 
-										<li><a href="../View/chart.php "><i class="icon-list-alt"></i><span class="hidden-tablet"> Charts</span></a></li>
+										<li><a href="../View/chart.php "><i class="icon-signal"></i><span class="hidden-tablet"> Analysis</span></a></li>
 										<li><a href="../View/calendar.php"><i class="icon-calendar"></i><span class="hidden-tablet"> Calendar</span></a></li>
 										<li><a href="../View/file-manager.php"><i class="icon-folder-open"></i><span class="hidden-tablet"> CV Manager</span></a></li>
 
 							<? }
 							  else { ?>
-
-											<li><a href="../View/Positions.php"><i class="icon-bar-chart"></i><span class="active hidden-tablet"> Positions </span></a></li>
-											<li><a href="../View/viewdetails.php "><i class="icon-align-justify"></i><span class="hidden-tablet"> View Details</span></a></li>
-											<li><a href="../View/editdetails.php "><i class="icon-edit"></i><span class="hidden-tablet"> Edit Details</span></a></li>
-											<li><a href="../View/Upload_form.php "><i class="icon-edit"></i><span class="hidden-tablet"> Upload Details</span></a></li>
-											<li><a href="../View/calendar.php"><i class="icon-calendar"></i><span class="hidden-tablet"> Calendar</span></a></li>
+                      <li><a href="../View/Dashboard.php"><i class="icon-bar-chart"></i><span class="active hidden-tablet"> Dashboard</span></a></li>
+                      <li><a href="../Controller/Upload_interndetails_Controller.php"><i class="icon-download-alt"></i><span class="active hidden-tablet"> Positions </span></a></li>
+											<li><a href="../Controller/Upload_Controller.php "><i class="icon-edit"></i><span class="hidden-tablet"> View/Update Details</span></a></li>
 
 							<?  } ?>
 						</ul>
@@ -157,26 +155,26 @@ if(isset($_SESSION['UserID']))
 
 						<div class="span3 statbox purple" onTablet="span6" onDesktop="span3">
 							<div class="boxchart">5,6,7,2,0,4,2,4,8,2,3,3,2</div>
-							<div class="number">854<i class="icon-arrow-up"></i></div>
-							<div class="title">MAC</div>
+							<div class="number">24<i class="icon-arrow-up"></i></div>
+							<div class="title">Web Developer</div>
 
 						</div>
 						<div class="span3 statbox green" onTablet="span6" onDesktop="span3">
 							<div class="boxchart">1,2,6,4,0,8,2,4,5,3,1,7,5</div>
-							<div class="number">123<i class="icon-arrow-up"></i></div>
-							<div class="title">MEng Civil</div>
+							<div class="number">40<i class="icon-arrow-up"></i></div>
+							<div class="title">SW Testing</div>
 
 						</div>
 						<div class="span3 statbox blue noMargin" onTablet="span6" onDesktop="span3">
 							<div class="boxchart">5,6,7,2,0,4,2,4,8,2,3,3,2</div>
-							<div class="number">982<i class="icon-arrow-up"></i></div>
-							<div class="title">MEng Mech</div>
+							<div class="number">26<i class="icon-arrow-up"></i></div>
+							<div class="title">Data Analyst</div>
 
 						</div>
 						<div class="span3 statbox yellow" onTablet="span6" onDesktop="span3">
 							<div class="boxchart">7,2,2,2,1,4,2,4,8,,0,3,3,5</div>
-							<div class="number">678<i class="icon-arrow-down"></i></div>
-							<div class="title">MEng Automotive</div>
+							<div class="number">34<i class="icon-arrow-down"></i></div>
+							<div class="title">Sys Development</div>
 
 						</div>
 
@@ -199,7 +197,7 @@ if(isset($_SESSION['UserID']))
 										<div class="bar">
 
 											<div class="value">
-												<span>37%</span>
+												<span>8%</span>
 											</div>
 
 										</div>
@@ -213,7 +211,7 @@ if(isset($_SESSION['UserID']))
 										<div class="bar">
 
 											<div class="value">
-												<span>16%</span>
+												<span>11%</span>
 											</div>
 
 										</div>
@@ -227,7 +225,7 @@ if(isset($_SESSION['UserID']))
 										<div class="bar">
 
 											<div class="value">
-												<span>12%</span>
+												<span>15%</span>
 											</div>
 
 										</div>
@@ -241,7 +239,7 @@ if(isset($_SESSION['UserID']))
 										<div class="bar">
 
 											<div class="value">
-												<span>9%</span>
+												<span>26%</span>
 											</div>
 
 										</div>
@@ -255,7 +253,7 @@ if(isset($_SESSION['UserID']))
 										<div class="bar">
 
 											<div class="value">
-												<span>7%</span>
+												<span>31%</span>
 											</div>
 
 										</div>
@@ -269,7 +267,7 @@ if(isset($_SESSION['UserID']))
 										<div class="bar">
 
 											<div class="value">
-												<span>6%</span>
+												<span>33%</span>
 											</div>
 
 										</div>
@@ -283,7 +281,7 @@ if(isset($_SESSION['UserID']))
 										<div class="bar">
 
 											<div class="value">
-												<span>5%</span>
+												<span>36%</span>
 											</div>
 
 										</div>
@@ -297,26 +295,12 @@ if(isset($_SESSION['UserID']))
 										<div class="bar">
 
 											<div class="value">
-												<span>5%</span>
+												<span>35%</span>
 											</div>
 
 										</div>
 
 										<div class="title">2015</div>
-
-									</div>
-
-									<div class="singleBar">
-
-										<div class="bar">
-
-											<div class="value">
-												<span>3%</span>
-											</div>
-
-										</div>
-
-										<div class="title">2016</div>
 
 									</div>
 

@@ -34,7 +34,7 @@ function Retrieve_Password()
 function Login_Check($useremail,$password)
 {
 
-	$Row_count = Check_rowcount("Select * from user_details where `User_Email` = '$useremail' and `Password` = MD5('$password')");
+	$Row_count = Check_rowcount("Select * from user_details where `User_StudentId` = '$useremail' and `Password` = MD5('$password')");
 
 	if($Row_count == 1)
 	{
@@ -55,7 +55,7 @@ function Login_Check($useremail,$password)
 function Retrieve_UserID($useremail,$password)
 {
 
-	$Retrieved_result = Retrieve_qry("Select `idUser` from user_details where `User_Email` = '$useremail' and `Password` = MD5('$password');");
+	$Retrieved_result = Retrieve_qry("Select `idUser` from user_details where `User_StudentId` = '$useremail' and `Password` = MD5('$password');");
 
 	$i =0;
 
@@ -86,17 +86,35 @@ function Profile_Check($UserID)
 	return $Profile_Type[0];
 }
 
-// Function to Retrieve First Name for a particular User based on the USER ID
+// Function to Retrieve Student ID for a particular User based on the USER ID
 
-function Retrieve_FirstName($UserID)
+function Retrieve_StudentId($UserID)
 {
-	$Retrieved_result = Retrieve_qry("Select `First Name` from user_details where `idUser` = $UserID;");
+
+	$Retrieved_result = Retrieve_qry("Select `User_StudentId` from user_details where `idUser` = $UserID;");
 
 	$i =0;
 
 	foreach ($Retrieved_result as $Rowlist)
 	{
-		$First_Name[$i] = $Rowlist['First Name'];
+		$StudentID[$i] = $Rowlist['User_StudentId'];
+		$i++;
+	}
+
+	return $StudentID[0];
+}
+
+// Function to Retrieve First Name for a particular User based on the USER ID
+
+function Retrieve_FirstName($UserID)
+{
+	$Retrieved_result = Retrieve_qry("Select `User_FName` from user_details where `idUser` = $UserID;");
+
+	$i =0;
+
+	foreach ($Retrieved_result as $Rowlist)
+	{
+		$First_Name[$i] = $Rowlist['User_FName'];
 		$i++;
 	}
 
@@ -122,9 +140,19 @@ function Retrieve_ProfileImg($UserID)
 
 // Function to Retrieve Last Name for a particular User based on the USER ID   --not implemented
 
-function Retrieve_lastName()
+function Retrieve_lastName($UserID)
 {
+	$Retrieved_result = Retrieve_qry("Select `User_LName` from user_details where `idUser` = $UserID;");
 
+	$i =0;
+
+	foreach ($Retrieved_result as $Rowlist)
+	{
+		$Last_Name[$i] = $Rowlist['User_LName'];
+		$i++;
+	}
+
+	return $Last_Name[0];
 }
 
 // Function to Retrieve Full Name for a particular User based on the USER ID
@@ -191,13 +219,13 @@ function Retrieve_Address()
 
 function Retrieve_EmailAddr($UserID)
 {
-	$Retrieved_result = Retrieve_qry("Select  `Email ID` from user_details where `idUser` = $UserID;");
+	$Retrieved_result = Retrieve_qry("Select  `User_Email` from user_details where `idUser` = $UserID;");
 
 	$i =0;
 
 	foreach ($Retrieved_result as $Rowlist)
 	{
-		$User_EmailID[$i] = $Rowlist['Email ID'];
+		$User_EmailID[$i] = $Rowlist['User_Email'];
 		$i++;
 	}
 

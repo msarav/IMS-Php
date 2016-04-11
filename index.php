@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <? session_start(); ?>
-					
 <html lang="en">
 <head>
 
@@ -75,8 +74,7 @@
             <h2><b> Internship Mgmt System</b></h2>
 
 					</div>
-					<h2>Login to your account</h2> 
-					
+					<h2>Login to your account</h2>
 					<form class="form-horizontal" action="Controller/Login_Controller.php" method="post">
 						<fieldset>
 
@@ -94,7 +92,7 @@
 							<div class="clearfix"></div>
 
 							<div class="clearfix">
-								  	
+								  	<label for="validation_text" id="validation_alert" class="col-sm-8 control-label">
 
 										<?
 											$_SESSION['UserID'] = null;
@@ -104,20 +102,12 @@
 											$_SESSION['Logged in'] = null;
 
 										if(isset($_SESSION['validation_alert'])){
-										?> 
-										<label for="validation_text" id="validation_alert" class="col-sm-8 control-label"> 
-										<code>
-										
-										<? echo ($_SESSION['validation_alert']);?></code>
+										?> <code><? echo ($_SESSION['validation_alert']);?></code>
 										<?
 											session_destroy();
-											
-										?>
-										</label>
-										<?
 										}
 										?>
-										
+										</label>
 
 							</div>
 

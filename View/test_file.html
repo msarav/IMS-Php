@@ -1,0 +1,56 @@
+<html>
+  <head>
+  <script>
+      $(document).on("click", ".open-AddBookDialog", function () {
+         var myBookId = $(this).data('id');
+         $(".modal-body #bookId").val( myBookId );
+    });
+  </script>
+
+  <meta charset="utf-8">
+	<title>Internship Mgmt System</title>
+	<meta name="description" content="IMS Dashboard">
+	<meta name="author" content="Satish">
+	<meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+	<!-- end: Meta -->
+
+	<!-- start: Mobile Specific -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- end: Mobile Specific -->
+
+	<!-- start: CSS -->
+	<link id="bootstrap-style" href="../css/bootstrap.min.css" rel="stylesheet">
+	<link href="../css/bootstrap-responsive.min.css" rel="stylesheet">
+	<link id="base-style" href="../css/style.css" rel="stylesheet">
+	<link id="base-style-responsive" href="../css/style-responsive.css" rel="stylesheet">
+	<link href='../css/google_font_api.css' rel='stylesheet' type='text/css'>
+
+  </head>
+  <body>
+
+      <p>Link 1</p>
+      <a data-toggle="modal" data-id="ISBN564541" title="Add this item" class="open-AddBookDialog btn btn-primary" href="#addBookDialog">test</a>
+
+      <p>&nbsp;</p>
+
+
+      <p>Link 2</p>
+      <a data-toggle="modal" data-id="ISBN-001122" title="Add this item" class="open-AddBookDialog btn btn-primary" href="#addBookDialog">test</a>
+
+      <div class="modal hide" id="addBookDialog">
+       <div class="modal-header">
+          <button class="close" data-dismiss="modal">×</button>
+          <h3>Modal header</h3>
+        </div>
+          <div class="modal-body">
+              <p>some content</p>
+              <input type="text" name="bookId" id="bookId" value=""/>
+          </div>
+      </div>
+
+      <script src="../js/jquery-1.9.1.min.js"></script>
+  		<script src="../js/bootstrap.min.js"></script>
+
+
+  </body>
+</html>

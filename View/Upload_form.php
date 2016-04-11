@@ -9,9 +9,15 @@ if(isset($_SESSION['UserID']))
 	$UserID = $_SESSION['UserID'];
 	$Username = $_SESSION['User Name'];
 	$ProfileType =$_SESSION['User Type'];
+  $StudentID = $_SESSION['StudentId'];
+  $Useremail =$_SESSION['User email'];
+  $User_fname = $_SESSION['User_Fname'];
+  $User_lname =$_SESSION['User_Lname'];
 
-  include("../Controller/Lookup_Controller.php");
+  require_once("../Controller/Lookup_Controller.php");
+//  var_dump($FormLookup_Details_years);
 
+  //exit();
 ?>
 <html lang="en">
 <head>
@@ -79,6 +85,13 @@ if(isset($_SESSION['UserID']))
 					<ul class="nav pull-right">
 
 						<!-- start: User Dropdown -->
+            <li class="dropdown">
+              <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="halflings-icon white user"></i>
+                Access level: <? echo $ProfileType; ?>
+              </a>
+            </li>
+
 						<li class="dropdown">
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 								<i class="halflings-icon white user"></i> <?echo 	$Username;?>
@@ -109,14 +122,24 @@ if(isset($_SESSION['UserID']))
 				<div id="sidebar-left" class="span2" >
 					<div class="nav-collapse sidebar-nav">
 						<ul class="nav nav-tabs nav-stacked main-menu">
-							<li><a href="../View/Dashboard.php"><i class="icon-bar-chart"></i><span class="active hidden-tablet"> Dashboard</span></a></li>
-							<li><a href="../View/Upload_form.php "><i class="icon-edit"></i><span class="hidden-tablet"> Upload Details</span></a></li>
-							<li><a href="../View/viewdetails.php "><i class="icon-align-justify"></i><span class="hidden-tablet"> View Details</span></a></li>
+              <? if($ProfileType == "Admin") { ?>
 
-							<li><a href="../View/chart.php "><i class="icon-list-alt"></i><span class="hidden-tablet"> Charts</span></a></li>
-							<li><a href="../View/calendar.php"><i class="icon-calendar"></i><span class="hidden-tablet"> Calendar</span></a></li>
-							<li><a href="../View/file-manager.php"><i class="icon-folder-open"></i><span class="hidden-tablet"> CV Manager</span></a></li>
+										<li><a href="../View/Dashboard.php"><i class="icon-bar-chart"></i><span class="active hidden-tablet"> Dashboard</span></a></li>
+                    <li><a href="../Controller/Upload_interndetails_Controller.php "><i class="icon-download-alt"></i><span class="hidden-tablet"> Positions</span></a></li>
+										<li><a href="../View/Upload_form.php "><i class="icon-edit"></i><span class="hidden-tablet"> Upload Details</span></a></li>
+										<li><a href="../Controller/View_Controller.php "><i class="icon-align-justify"></i><span class="hidden-tablet"> View Details</span></a></li>
 
+										<li><a href="../View/chart.php "><i class="icon-signal"></i><span class="hidden-tablet"> Analysis</span></a></li>
+										<li><a href="../View/calendar.php"><i class="icon-calendar"></i><span class="hidden-tablet"> Calendar</span></a></li>
+										<li><a href="../View/file-manager.php"><i class="icon-folder-open"></i><span class="hidden-tablet"> CV Manager</span></a></li>
+
+							<? }
+							  else { ?>
+                      <li><a href="../View/Dashboard.php"><i class="icon-bar-chart"></i><span class="active hidden-tablet"> Dashboard</span></a></li>
+                      <li><a href="../Controller/Upload_interndetails_Controller.php"><i class="icon-download-alt"></i><span class="active hidden-tablet"> Positions </span></a></li>
+											<li><a href="../Controller/Upload_Controller.php "><i class="icon-edit"></i><span class="hidden-tablet"> View/Update Details</span></a></li>
+
+							<?  } ?>
 						</ul>
 					</div>
 				</div>
@@ -147,12 +170,12 @@ if(isset($_SESSION['UserID']))
     					<div class="box-header" data-original-title>
     						<h2><i class="halflings-icon white user"></i>
                   <span class="break"></span>
-                  <span class="col-md-3" style="border:1px solid black;"> Student Pre-Internship Survey  </span>
-                  <span class="col-md-6" style="border:1px solid black;"> </span>
-                  <span class="col-md-6" style="border:1px solid black;">
+                  <span class="col-md-3" > Student Pre-Internship Survey  </span>
+                  <span class="col-md-6" style="margin-left: 3em;"> </span>
+                  <span class="col-md-6" style="margin-left: 27em;">
                     <?
                      if(isset($_GET['info']))
-                        echo "Added one row..";
+                        echo "Record Updated..";
 
                     ?>
                   </span>
@@ -214,44 +237,63 @@ if(isset($_SESSION['UserID']))
                           <label class="control-label" for="Stu_id">Student ID</label>
                           <div class="controls">
                             <div class="input">
-            									<input id="Student_id" name="Student_id" size="16" type="text"/>
+                              <? if($ProfileType == "Student"){ ?>
+            									<input id="Student_id_disabled" name="Student_id_disabled" size="16" type="text" value=<?echo $StudentID;?> disabled/>
+                              <input id="Student_id" name="Student_id" size="16" type="text" value=<?echo $StudentID;?> style="display:none"/>
+                              <? }
+                              else
+                              {  ?>
+                                <input id="Student_id" name="Student_id" size="16" type="text" />
+                              <? } ?>
           								  </div>
                           </div>
                         </div>
 
                         <div class="control-group">
-                          <label class="control-label" for="Stu_fname">First Name</label>
-                          <div class="controls">
+                          <label class="control-label" for="Stu_fname">Student Name</label>
+                          <div class="controls controls-row">
                             <div class="input">
-            									<input id="Student_fname" name="Student_fname" size="16" type="text"/>
-          								  </div>
+
+                              <? if($ProfileType == "Student"){ ?>
+                              <input class="span4" id="Student_fname_disabled" name="Student_fname_disabled" size="16" type="text" value=<?echo $User_fname;?> disabled placeholder="First Name"/>
+                              <input class="span4" id="Student_fname" name="Student_fname" size="16" type="text" value=<?echo $User_fname;?> style="display:none" placeholder="First Name"/>
+                              <? }
+                              else
+                              {  ?>
+                                <input class="span4" id="Student_fname" name="Student_fname" size="16" type="text" placeholder="First Name"/>
+                              <? } ?>
+
+							  <? if($ProfileType == "Student"){ ?>
+                              <input class="span4" id="Student_lname_disabled" name="Student_lname_disabled" size="16" type="text" value=<?echo $User_lname;?> disabled placeholder="Last Name"/>
+                              <input class="span4" id="Student_lname" name="Student_lname" size="16" type="text" value=<?echo $User_lname;?> style="display:none" placeholder="Last Name"/>
+                              <? }
+                              else
+                              {  ?>
+                                <input class="span4" id="Student_lname" name="Student_lname" size="16" type="text" placeholder="Last Name"/>
+                              <? } ?>
+
+          					</div>
                           </div>
                         </div>
 
-                        <div class="control-group">
-                          <label class="control-label" for="Stu_id">Last Name</label>
-                          <div class="controls">
-                            <div class="input">
-            									<input id="Student_lname" name="Student_lname" size="16" type="text"/>
-          								  </div>
-                          </div>
-                        </div>
+
 
                         <div class="control-group">
-                          <label class="control-label" for="Stu_email">E-mail</label>
-                          <div class="controls">
+                          <label class="control-label" for="Stu_email">Student Contact Info</label>
+                          <div class="controls controls-row">
                             <div class="input">
-            									<input id="Student_email" name="Student_email" size="16" type="text"/>
-          								  </div>
-                          </div>
-                        </div>
+                              <? if($ProfileType == "Student"){ ?>
+                              <input class="span4" id="Student_email_disabled" name="Student_email_disabled" size="16" type="text" value=<?echo $Useremail;?> disabled placeholder="Email" />
+                              <input class="span4" id="Student_email" name="Student_email" size="16" type="text" value=<?echo $Useremail;?> style="display:none" placeholder="Email"/>
+                              <? }
+                              else
+                              {  ?>
+                                <input class="span4" id="Student_email" name="Student_email" size="16" type="text" placeholder="Email"/>
+                              <? } ?>
 
-                        <div class="control-group">
-                          <label class="control-label" for="Stu_phnum">Phone num</label>
-                          <div class="controls">
-                            <div class="input">
-            									<input id="Student_phnum" name="Student_phnum" size="16" type="text"/>
-          								  </div>
+							   <input class="span4" id="Student_phnum" name="Student_phnum" size="16" type="text" placeholder="Phone num"/>
+
+          					 </div>
                           </div>
                         </div>
 
@@ -283,7 +325,7 @@ if(isset($_SESSION['UserID']))
           								<label class="control-label">Status</label>
           								<div class="controls">
           								  <label class="radio">
-          									           <input type="radio" name="Status" id="Status_International_student" value="international_student" checked="">
+          									           <input type="radio" name="Status" id="Status_International_student" value="International_student" checked="">
           									                    International Student
           								  </label>
           								  <div style="clear:both"></div>
@@ -292,6 +334,22 @@ if(isset($_SESSION['UserID']))
           									                    PR/Citizen
                             </label>
           								</div>
+                        </div>
+
+                        <div class="control-group">
+                          <label class="control-label" for="Country">Country</label>
+                          <div class="controls">
+                            <select id="Student_Country" name="Student_Country">
+                              <?
+                              foreach($FormLookup_Details_countries as $country)
+                              {
+                              ?>
+                                       <option value="<?echo $country; ?>"> <?echo $country;?> </option>
+                              <?
+                              }
+                              ?>
+                            </select>
+                          </div>
                         </div>
 
                      </div>
