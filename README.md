@@ -1,1 +1,2 @@
-# IMS_Updated
+# IMS - Internship Management System
+  
